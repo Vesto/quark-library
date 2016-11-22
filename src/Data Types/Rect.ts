@@ -1,9 +1,9 @@
 class Rect {
-    point: Point;
-    size: Size;
+    public point: Point;
+    public size: Size;
 
     get qkRect() {
-        return QKRect(point.qkPoint, size.qkSize)
+        return new QKRect(this.point.qkPoint, this.size.qkSize);
     }
 
     constructor(point: Point, size: Size) {
@@ -11,7 +11,7 @@ class Rect {
         this.size = size;
     }
 
-    static fromQKRect(qkRect: QKRect): Rect {
-        // return new this()
+    public static fromQKRect(qkRect: QKRect): Rect {
+        return new Rect(Point.fromQKPoint(qkRect.origin), Size.fromQKSize(qkRect.size));
     }
 }

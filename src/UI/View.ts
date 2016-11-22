@@ -3,21 +3,30 @@ class View {
 
     /* Positioning */
     get rect(): Rect {
-        return new Rect(view.rect);
+        return Rect.fromQKRect(this.view.rect);
     }
     set rect(rect: Rect) {
         this.view.rect = rect.qkRect;
     }
 
     /* View hierarchy */
-    get subviews(): [View] {
-        return this.view.subviews.map(function(qkView){ return View(qkView); });
+    get subviews(): View[] {
+        return this.view.subviews.map(
+            function(qkView){
+                return View.fromQKView(qkView);
+            }
+        );
     }
 
     /* Events */
     public layout() {
         // QKLogger.output("hi");
-        QKLogger.output("hi\n");
+        Logger.print("hi");
     }
 
+    /* Conversion */
+    public static fromQKView(qkView: QKView): View {
+        // TODO: Do this
+        return new View();
+    }
 }

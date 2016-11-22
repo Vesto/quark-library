@@ -1,9 +1,9 @@
 class Point {
-    x: number;
-    y: number;
+    public x: number;
+    public y: number;
 
     get qkPoint() {
-        return QKPoint(x, y);
+        return new QKPoint(this.x, this.y);
     }
 
     constructor(x: number, y: number) {
@@ -11,7 +11,7 @@ class Point {
         this.y = y;
     }
 
-    static fromQKPoint(qkPoint: QKPoint): Point {
+    public static fromQKPoint(qkPoint: QKPoint): Point {
         return new Point(qkPoint.x, qkPoint.y);
     }
 }

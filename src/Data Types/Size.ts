@@ -1,9 +1,9 @@
 class Size {
-    width: number;
-    height: number;
+    public width: number;
+    public height: number;
 
     get qkSize() {
-        return new QKSize(width, height);
+        return new QKSize(this.width, this.height);
     }
 
     constructor(width: number, height: number) {
@@ -11,7 +11,7 @@ class Size {
         this.height = height;
     }
 
-    static fromQKSize(qkSize: QKSize): Size {
-        return new Size(qkSize.x, qkSize.y);
+    public static fromQKSize(qkSize: QKSize): Size {
+        return new Size(qkSize.width, qkSize.height);
     }
 }
