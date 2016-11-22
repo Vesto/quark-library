@@ -1,4 +1,3 @@
-
 class Color {
     red: number;
     green: number;

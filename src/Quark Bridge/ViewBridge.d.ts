@@ -1,9 +1,8 @@
-
-interface QKFrameChangeFunction {
-    (view: QKView): never
+declare interface QKFrameChangeFunction {
+    (view: QKView): never;
 }
 
-interface QKView {
+declare class QKView {
     /* Positioning */
     rect: QKRect;
 

@@ -1,4 +1,3 @@
-
 class Shadow {
     offset: Point;
     blurRadius: number;
