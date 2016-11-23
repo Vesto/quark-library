@@ -1,3 +1,3 @@
 declare class QKLogger {
-    static output(test: string);
+    static output(test: string): void;
 }

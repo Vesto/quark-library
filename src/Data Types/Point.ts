@@ -2,7 +2,7 @@ class Point {
     public x: number;
     public y: number;
 
-    get qkPoint() {
+    public get qkPoint(): QKPoint {
         return new QKPoint(this.x, this.y);
     }
 

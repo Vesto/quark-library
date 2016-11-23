@@ -2,7 +2,7 @@ class Size {
     public width: number;
     public height: number;
 
-    get qkSize() {
+    public get qkSize() {
         return new QKSize(this.width, this.height);
     }
 

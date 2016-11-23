@@ -4,6 +4,10 @@ class Color {
     public blue: number;
     public alpha: number;
 
+    public get qkColor(): QKColor {
+        return new QKColor(this.red, this.green, this.blue, this.alpha);
+    }
+
     constructor(red: number, green: number, blue: number, alpha: number) {
         this.red = red;
         this.green = green;

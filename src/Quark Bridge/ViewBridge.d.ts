@@ -2,15 +2,18 @@ declare interface QKFrameChangeFunction {
     (view: QKView): never;
 }
 
+// TODO: Store the JS value for the view in the QKView object
 declare class QKView {
+    readonly jsView: View;
+
     /* Positioning */
     rect: QKRect;
 
     /* View hierarchy */
     readonly subviews: [QKView];
     readonly superview: QKView | undefined;
-    addSubview(view: QKView);
-    removeFromSuperview();
+    addSubview(view: QKView): void;
+    removeFromSuperview(): void;
 
     /* Events */
 
@@ -28,6 +31,5 @@ declare class QKView {
     cornerRadius: number
 
     /* Initiator */
-    constructor()
+    constructor(jsView: View)
 }
-

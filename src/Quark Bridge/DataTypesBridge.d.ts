@@ -24,7 +24,7 @@ declare class QKShadow {
     blurRadius: number;
     color: QKColor;
 
-    constructor(offset: QKColor, blurRadius: number, color: QKColor);
+    constructor(offset: QKPoint, blurRadius: number, color: QKColor);
 }
 
 declare class QKColor {

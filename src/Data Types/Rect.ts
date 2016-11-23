@@ -2,7 +2,7 @@ class Rect {
     public point: Point;
     public size: Size;
 
-    get qkRect() {
+    public get qkRect() {
         return new QKRect(this.point.qkPoint, this.size.qkSize);
     }
 
