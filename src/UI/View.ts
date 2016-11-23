@@ -10,6 +10,14 @@ class View {
     }
 
     /* View hierarchy */
+    get superview(): View | undefined {
+        if (this.view.superview) {
+            return View.fromQKView(this.view.superview);
+        } else {
+            return undefined;
+        }
+    }
+
     get subviews(): View[] {
         return this.view.subviews.map(
             function(qkView){
@@ -19,8 +27,8 @@ class View {
     }
 
     /* Events */
+    /// Override point for subviews of a View.
     public layout() {
-        // QKLogger.output("hi");
         Logger.print("hi");
     }
 
