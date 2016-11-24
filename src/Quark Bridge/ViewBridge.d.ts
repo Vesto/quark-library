@@ -4,7 +4,7 @@ declare interface QKFrameChangeFunction {
 
 // TODO: Store the JS value for the view in the QKView object
 declare class QKView {
-    readonly jsView: View;
+    readonly jsView: View; // Will always be define if accessing from JS
 
     /* Positioning */
     rect: QKRect;
