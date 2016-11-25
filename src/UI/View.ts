@@ -1,5 +1,5 @@
 class View {
-    private view: QKView;
+    protected view: QKView;
 
     public constructor(view?: QKView) {
         if (view) {
