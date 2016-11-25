@@ -1,35 +1,35 @@
-declare interface QKFrameChangeFunction {
-    (view: QKView): never;
-}
-
 // TODO: Store the JS value for the view in the QKView object
 declare class QKView {
-    readonly jsView: View; // Will always be define if accessing from JS
-
+    /* JavaScript Interop */
+    jsView?: View
+    
     /* Positioning */
-    rect: QKRect;
+    jsRect: Rect
 
     /* View hierarchy */
-    readonly subviews: [QKView];
-    readonly superview: QKView | undefined;
-    addSubview(view: QKView): void;
-    removeFromSuperview(): void;
-
+    readonly jsSubviews: View[]
+    readonly jsSuperview?: View
+    jsAddSubview(view: View): void
+    jsRemoveFromSuperview(): void
+    
     /* Events */
-
-
+    
     /* Layout */
-    frameChangedHandler: QKFrameChangeFunction | undefined
-
+    
     /* Visibility */
-    hidden: boolean
-
+    jsHidden: boolean
+    
     /* Style */
-    backgroundColor: QKColor
-    alpha: number
-    shadow: QKShadow
-    cornerRadius: number
-
+    jsBackgroundColor: Color
+    jsAlpha: number
+    jsShadow: Shadow
+    jsCornerRadius: number
+    
     /* Initiator */
-    constructor(jsView: View)
+    /// Creates a new view with a JSView.
+    constructor()
+}
+
+declare class QKButton extends QKView {
+    jsTitle: string;
 }
