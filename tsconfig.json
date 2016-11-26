@@ -4,7 +4,8 @@
     "sourceMap": true,
     "outFile": "dist/build.js",
     "strictNullChecks": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "watch": true
   },
   "include": [
     "src/**/*.ts"

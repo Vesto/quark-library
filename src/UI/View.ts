@@ -1,12 +1,23 @@
 class View {
     protected view: QKView;
 
-    public constructor(view?: QKView) {
+    public constructor(view?: QKView, save: boolean = false) {
+        // Assign the proper view or create it
         if (view) {
             this.view = view;
         } else {
             this.view = new QKView();
         }
+
+        // Save the view if needed
+        if (save) {
+            this.saveJSView();
+        }
+    }
+
+    /// This saves this view to the QKView.jsView
+    protected saveJSView() {
+        this.view.jsView = this;
     }
 
     /* Positioning */
@@ -24,7 +35,7 @@ class View {
     /* Layout */
     /// Override point for subviews of a View.
     public layout() {
-        Logger.print("layout");
+        Logger.print(`Layout ${this}`);
     }
 
     /* Visibility */
