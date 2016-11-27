@@ -1,4 +1,6 @@
-class View {
+import { QKView } from "../Quark Bridge/ViewBridge";
+
+export default class View {
     protected view: QKView;
 
     public constructor(view?: QKView, save: boolean = false) {

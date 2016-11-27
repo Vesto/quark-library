@@ -1,4 +1,5 @@
-/// <reference path="./View.ts" />
+import { QKButton } from "../Quark Bridge/ViewBridge";
+import View from "./View";
 
 class Button extends View {
     protected get button(): QKButton { return this.view as QKButton; }

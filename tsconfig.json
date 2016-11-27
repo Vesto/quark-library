@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "sourceMap": true,
+    "module": "amd",
     "outFile": "dist/build.js",
     "strictNullChecks": true,
     "noImplicitAny": true,

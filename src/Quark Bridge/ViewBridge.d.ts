@@ -1,5 +1,7 @@
+import View from "../UI/View";
+
 // TODO: Store the JS value for the view in the QKView object
-declare class QKView {
+export declare class QKView {
     /* JavaScript Interop */
     jsView?: View
     
@@ -30,6 +32,6 @@ declare class QKView {
     constructor()
 }
 
-declare class QKButton extends QKView {
+export declare class QKButton extends QKView {
     jsTitle: string;
 }
