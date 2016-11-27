@@ -1,4 +1,7 @@
-class Rect {
+import { Point } from "Point";
+import { Size } from "Size";
+
+export class Rect {
     public point: Point;
     public size: Size;
 

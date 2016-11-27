@@ -1,7 +1,7 @@
-import { QKButton } from "../Quark Bridge/ViewBridge";
-import View from "./View";
+import { QKButton } from "../bridge/UI";
+import { View } from "View";
 
-class Button extends View {
+export class Button extends View {
     protected get button(): QKButton { return this.view as QKButton; }
 
     public constructor() {

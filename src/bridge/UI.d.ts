@@ -1,4 +1,8 @@
-import View from "../UI/View";
+import { Color } from "../types/Color";
+import { Rect } from "../types/Rect";
+import { Shadow } from "../types/Shadow";
+
+import { View } from "../ui/View";
 
 // TODO: Store the JS value for the view in the QKView object
 export declare class QKView {

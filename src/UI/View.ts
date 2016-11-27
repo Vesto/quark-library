@@ -1,6 +1,12 @@
-import { QKView } from "../Quark Bridge/ViewBridge";
+import { Color } from "types/Color";
+import { Rect } from "types/Rect";
+import { Shadow } from "types/Shadow";
 
-export default class View {
+import { QKView } from "bridge/UI";
+
+import { Logger } from "utils/Logger";
+
+export class View {
     protected view: QKView;
 
     public constructor(view?: QKView, save: boolean = false) {

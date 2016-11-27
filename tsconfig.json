@@ -3,13 +3,17 @@
     "target": "es5",
     "sourceMap": true,
     "module": "amd",
-    "outFile": "dist/build.js",
+    "noLib": true, // Prevent use of HTML5 bindings
+
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "watch": true
+
+    "outFile": "lib/build.js",
+    "types": [ "src/typings.d.ts" ],
+    "declaration": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"

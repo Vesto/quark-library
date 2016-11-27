@@ -1,3 +1,3 @@
-declare class QKLogger {
+export declare class QKLogger {
     static output(test: string): void;
 }

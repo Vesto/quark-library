@@ -1,4 +1,6 @@
-class Logger {
+import { QKLogger } from "../bridge/utils";
+
+export class Logger {
     // TODO: Look at how console.log is done
     // TODO: Rename to Log or create a standard Output class and have an Output for the console
 
