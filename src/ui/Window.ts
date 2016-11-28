@@ -18,4 +18,8 @@ export class Window {
     public popover(view: View, from: View | Point): void {
         // May add popover side, presentation style (popover or modal)
     }
+
+    public alert(title: string, description: string, options: string[]) {
+        // TODO: Design a better API for this
+    }
 }
