@@ -1,13 +1,17 @@
+// Bridge
+export * from "./bridge/UI";
+export * from "./bridge/Utils";
+
 // Types
-export { Color } from "types/Color";
-export { Point } from "types/Point";
-export { Rect } from "types/Rect";
-export { Shadow } from "types/Shadow";
-export { Size } from "types/Size";
+export * from "./types/Color";
+export * from "./types/Point";
+export * from "./types/Rect";
+export * from "./types/Shadow";
+export * from "./types/Size";
 
 // UI
-export { View } from "ui/View";
-export { Button } from "ui/Button";
+export * from "./ui/views/View";
+export * from "./ui/views/Button";
 
 // Utils
-export { Logger } from "utils/Logger";
+export * from "./utils/Logger";

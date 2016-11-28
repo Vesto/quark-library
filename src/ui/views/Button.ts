@@ -1,5 +1,6 @@
-import { QKButton } from "../bridge/UI";
-import { View } from "View";
+import { QKButton } from "../../bridge/UI";
+
+import { View } from "./View";
 
 export class Button extends View {
     protected get button(): QKButton { return this.view as QKButton; }

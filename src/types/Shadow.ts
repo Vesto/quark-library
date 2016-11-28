@@ -1,5 +1,5 @@
-import { Color } from "Color";
-import { Point } from "Point";
+import { Color } from "./Color";
+import { Point } from "./Point";
 
 export class Shadow {
     public offset: Point;

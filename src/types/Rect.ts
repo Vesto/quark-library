@@ -1,5 +1,5 @@
-import { Point } from "Point";
-import { Size } from "Size";
+import { Point } from "./Point";
+import { Size } from "./Size";
 
 export class Rect {
     public point: Point;

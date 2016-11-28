@@ -2,14 +2,14 @@
   "compilerOptions": {
     "target": "es5",
     "sourceMap": true,
-    "module": "amd",
-    "noLib": true, // Prevent use of HTML5 bindings
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noLib": true,
 
     "strictNullChecks": true,
     "noImplicitAny": true,
 
-    "outFile": "lib/build.js",
-    "types": [ "src/typings.d.ts" ],
+    "outDir": "dist/",
     "declaration": true
   },
   "include": [

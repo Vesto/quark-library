@@ -1,10 +1,10 @@
-import { Color } from "types/Color";
-import { Rect } from "types/Rect";
-import { Shadow } from "types/Shadow";
+import { Color } from "../../types/Color";
+import { Rect } from "../../types/Rect";
+import { Shadow } from "../../types/Shadow";
 
-import { QKView } from "bridge/UI";
+import { Logger } from "../../utils/Logger";
 
-import { Logger } from "utils/Logger";
+import { QKView } from "../../bridge/UI";
 
 export class View {
     protected view: QKView;

@@ -1,4 +1,4 @@
-import { QKLogger } from "../bridge/utils";
+import { QKLogger } from "../bridge/Utils";
 
 export class Logger {
     // TODO: Look at how console.log is done
