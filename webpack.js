@@ -1,19 +1,5 @@
 var webpack = require("webpack");
 
-// webpack(
-//     {
-//         entry: "./",
-//         output: {
-//             filename: "bundle.js",
-//             libraryTarget: "umd",
-//             library: "quark"
-//         }
-//     }, function() {
-//         console.log("Complete.");
-//     }
-// );
-
-
 webpack(
     {
         entry: './', // Use Delegate.ts
