@@ -1,5 +1,5 @@
 import { View } from "./View";
-import { Font } from "./Font";
+import { Font } from "../../types/Font";
 import { Color } from "../../types/Color";
 
 export class Label extends View {

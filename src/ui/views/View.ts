@@ -4,11 +4,13 @@ import { Shadow } from "../../types/Shadow";
 
 import { Logger } from "../../utils/Logger";
 
-import { QKView } from "../../bridge/UI";
+import { QKView } from "../../bridge/Views";
 
 export class View {
     protected view: QKView;
 
+    public constructor(view: QKView, save: boolean);
+    public constructor();
     public constructor(view?: QKView, save: boolean = false) {
         // Assign the proper view or create it
         if (view) {
@@ -17,8 +19,8 @@ export class View {
             this.view = new QKView();
         }
 
-        // Save the view if needed
-        if (save) {
+        // Save the view if created new QKView or wants to be saved
+        if (!view || save) {
             this.saveJSView();
         }
     }

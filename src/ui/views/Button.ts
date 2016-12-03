@@ -1,4 +1,4 @@
-import { QKButton } from "../../bridge/UI";
+import { QKButton } from "../../bridge/Views";
 
 import { View } from "./View";
 import { Image } from "../../types/Image";

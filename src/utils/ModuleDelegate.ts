@@ -4,8 +4,6 @@ import { Window } from "../ui/Window";
 import { ToolbarItem } from "../ui/ToolbarItem";
 
 export interface ModuleDelegate {
-    new(): ModuleDelegate;
-
     /// Returns a list of actions to put in the toolbar.
     createActions(): Action[];
 
