@@ -1,8 +1,8 @@
-import { QKButton } from "../../bridge/Views";
-
 import { View } from "./View";
 import { Image } from "../../types/Image";
 import { Control } from "./Control";
+
+import { QKButton } from "quark-native";
 
 export interface ButtonHandler { (button: Button): void; }
 

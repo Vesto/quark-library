@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ts-loader": "^1.2.2",
-    "webpack": "^1.13.3"
+    "quark-native": "file:../quark-native"
   }
 }

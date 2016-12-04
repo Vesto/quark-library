@@ -10,7 +10,9 @@
     "noImplicitAny": true,
 
     "outDir": "dist/",
-    "declaration": true
+    "declaration": true,
+
+    "typeRoots": [ "src/bridge" ]
   },
   "include": [
     "src/**/*"

@@ -1,10 +1,6 @@
 // actions
 export * from "./actions/Action";
 
-// bridge
-export * from "./bridge/Views";
-export * from "./bridge/Utils";
-
 // types
 export * from "./types/Color";
 export * from "./types/Edges";

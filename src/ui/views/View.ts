@@ -4,7 +4,7 @@ import { Shadow } from "../../types/Shadow";
 
 import { Logger } from "../../utils/Logger";
 
-import { QKView } from "../../bridge/Views";
+import { QKView } from "quark-native";
 
 export class View {
     protected view: QKView;

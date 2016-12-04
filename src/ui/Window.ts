@@ -1,10 +1,10 @@
 import { View } from "./views/View";
-
 import { Sidebar } from "./Sidebar";
 import { Point } from "../types/Point";
 import { ToolbarItem } from "./ToolbarItem";
 import { Theme } from "./Theme";
-import { QKWindow } from "../bridge/UI";
+
+import { QKWindow } from "quark-native";
 
 export class Window {
     protected window: QKWindow;
@@ -20,7 +20,7 @@ export class Window {
     public readonly rightSidebars: Sidebar[];
 
     constructor(window: QKWindow) {
-
+        this.window = window;
     }
 
     public popover(view: View, from: View | Point): void {
