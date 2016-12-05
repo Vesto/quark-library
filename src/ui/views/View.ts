@@ -9,8 +9,8 @@ import { QKView } from "quark-native";
 export class View {
     protected view: QKView;
 
-    public constructor(view: QKView, save: boolean);
     public constructor();
+    public constructor(view: QKView, save: boolean);
     public constructor(view?: QKView, save: boolean = false) {
         // Assign the proper view or create it
         if (view) {
@@ -45,7 +45,7 @@ export class View {
     /* Layout */
     /// Override point for subviews of a View.
     public layout() {
-        Logger.print(`Layout ${this}`);
+
     }
 
     /* Visibility */
