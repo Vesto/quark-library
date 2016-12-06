@@ -4,6 +4,7 @@
     "interface-name": false,
     "member-ordering": false,
     "no-reference": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "max-line-length": false
   }
 }

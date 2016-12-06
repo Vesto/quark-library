@@ -16,11 +16,14 @@ export class Rect {
         if (pointOrX instanceof Point && sizeOrY instanceof Size) {
             this.point = pointOrX;
             this.size = sizeOrY;
-        } else if (typeof pointOrX === "number" && typeof sizeOrY === "number" && width && height) {
+        } else if (
+            typeof pointOrX === "number" && typeof sizeOrY === "number" &&
+            typeof width !== "undefined" && typeof height !== "undefined"
+        ) {
             this.point = new Point(pointOrX, sizeOrY);
             this.size = new Size(width, height);
         } else {
-            throw new Error("Can not instantiate Rect with given parameters.");
+            throw new Error(`Can not instantiateRect with given parameters. ${pointOrX}, ${sizeOrY}, ${width}, ${height}`);
         }
     }
 }

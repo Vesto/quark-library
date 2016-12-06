@@ -9,6 +9,8 @@ import { QKView } from "quark-native";
 export class View {
     protected view: QKView;
 
+    public name: string = "";
+
     public constructor();
     public constructor(view: QKView, save: boolean);
     public constructor(view?: QKView, save: boolean = false) {
