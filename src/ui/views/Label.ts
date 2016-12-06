@@ -3,7 +3,7 @@ import { Font } from "../../types/Font";
 import { Color } from "../../types/Color";
 
 export class Label extends View {
-    public text: string; // Markdown styled text
-    public textColor: Color;
-    public font: Font;
+    public text: string; // Markdown styled text // TODO: Implement
+    public textColor: Color; // TODO: Implement
+    public font: Font; // TODO: Implement
 }

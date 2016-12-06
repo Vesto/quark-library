@@ -6,5 +6,5 @@ export enum VisualEffectStyle {
 
 // Blur on macOS and iOS, shadowed box on Android, just bordered on Windows
 export class VisualEffectView extends View {
-    public style: VisualEffectStyle;
+    public style: VisualEffectStyle; // TODO: Implement
 }

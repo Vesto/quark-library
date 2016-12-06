@@ -1,6 +1,8 @@
 import { View } from "./View";
 
+export enum ActivityIndicatorStyle { Small, Large }
+
 export class ActivityIndicator extends View {
-    public isActive: boolean; // If spinning
-    public style: "small" | "large"; // Maybe make this more sexy somehow?
+    public isActive: boolean; // If spinning // TODO: Implement
+    public style: ActivityIndicatorStyle; // Maybe make this more sexy somehow? // TODO: Implement
 }

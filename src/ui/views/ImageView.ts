@@ -8,6 +8,6 @@ export enum ImageScalingMode {
 }
 
 export class ImageView extends View {
-    public image: Image;
-    public scalingMode: ImageScalingMode;
+    public image: Image; // TODO: Implement
+    public scalingMode: ImageScalingMode; // TODO: Implement
 }

@@ -1,3 +1,3 @@
 export interface Control {
-    isEnabled: boolean;
+    isEnabled: boolean; // TODO: Implement
 }
