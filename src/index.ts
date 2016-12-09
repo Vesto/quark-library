@@ -17,6 +17,12 @@ export * from "./ui/Theme";
 export * from "./ui/ToolbarItem";
 export * from "./ui/Window";
 
+// ui/events
+export * from "./ui/events/Event";
+export * from "./ui/events/InteractionEvent";
+export * from "./ui/events/KeyEvent";
+export * from "./ui/events/ScrollEvent";
+
 // ui/views
 export * from "./ui/views/ActivityIndicator";
 export * from "./ui/views/Button";
@@ -41,4 +47,4 @@ export * from "./ui/views/containers/TabContainer";
 
 // utils
 export * from "./utils/Logger";
-export * from "./utils/ModuleDelegate";
+export * from "./ModuleDelegate";

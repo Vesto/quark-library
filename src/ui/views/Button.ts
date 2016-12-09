@@ -21,7 +21,7 @@ export class Button extends View implements Control {
 
     public isEnabled: boolean;
 
-    public buttonDownHandler?: ButtonHandler; // TODO: Implement
+    public buttonDownHandler?: ButtonHandler; // TODO: Implement // TODO: Manually call these from View events
     public buttonUpHandler?: ButtonHandler; // TODO: Implement
 
     public constructor() {

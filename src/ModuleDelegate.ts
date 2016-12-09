@@ -1,7 +1,7 @@
-import { Action } from "../actions/Action";
-import { Window } from "../ui/Window";
+import { Action } from "./actions/Action";
+import { Window } from "./ui/Window";
 
-import { ToolbarItem } from "../ui/ToolbarItem";
+import { ToolbarItem } from "./ui/ToolbarItem";
 
 export interface ModuleDelegate {
     /// Returns a list of actions to put in the toolbar.

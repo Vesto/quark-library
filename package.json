@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-
+    "@types/uuid": "^2.0.29",
+    "keycode": "^2.1.7",
+    "uuid": "^3.0.1"
   }
 }

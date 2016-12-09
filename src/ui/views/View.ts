@@ -2,11 +2,14 @@ import { Color } from "../../types/Color";
 import { Rect } from "../../types/Rect";
 import { Shadow } from "../../types/Shadow";
 
+import { QKView } from "quark-native";
+import { Point } from "../../types/Point";
+import { InteractionEvent } from "../events/InteractionEvent";
+import { KeyEvent } from "../events/KeyEvent";
+import { ScrollEvent } from "../events/ScrollEvent";
 import { Logger } from "../../utils/Logger";
 
-import { QKView } from "quark-native";
-
-export class View {
+export class View { // TODO: Z index // TODO: center convenience method
     protected view: QKView;
 
     public name: string = "";
@@ -36,6 +39,14 @@ export class View {
     public get rect(): Rect { return this.view.jsRect; }
     public set rect(rect: Rect) { this.view.jsRect = rect; }
 
+    public get center(): Point { return this.rect.center; }
+    public set center(newValue: Point) {
+        this.rect = new Rect(
+            new Point(newValue.x - this.rect.width / 2, newValue.y - this.rect.height / 2),
+            this.rect.size
+        );
+    }
+
     /* View hierarchy */
     public get superview(): View | undefined { return this.view.jsSuperview; }
     public get subviews(): View[] { return this.view.jsSubviews; }
@@ -43,11 +54,22 @@ export class View {
     public removeFromSuperview() { this.view.jsRemoveFromSuperview(); }
 
     /* Events */
+    public interactionEvent(event: InteractionEvent) {
+        Logger.print(`Interaction ${event}`);
+    }
+
+    public keyEvent(event: KeyEvent) {
+        Logger.print(`Key ${event}`);
+    }
+
+    public scrollEvent(event: ScrollEvent) {
+        Logger.print(`Scroll ${event}`);
+    }
 
     /* Layout */
     /// Override point for subviews of a View.
     public layout() {
-
+        // Override point
     }
 
     /* Visibility */
