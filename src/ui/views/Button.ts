@@ -25,6 +25,6 @@ export class Button extends View implements Control {
     public buttonUpHandler?: ButtonHandler; // TODO: Implement
 
     public constructor() {
-        super(new QKButton(), true);
+        super(new QKButton());
     }
 }

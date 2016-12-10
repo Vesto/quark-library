@@ -9,14 +9,15 @@ import { KeyEvent } from "../events/KeyEvent";
 import { ScrollEvent } from "../events/ScrollEvent";
 import { Logger } from "../../utils/Logger";
 
-export class View { // TODO: Z index // TODO: center convenience method
-    protected view: QKView;
+export class View {
+    /// The QKView backing this view object.
+    public view: QKView;
 
     public name: string = "";
 
     public constructor();
-    public constructor(view: QKView, save: boolean);
-    public constructor(view?: QKView, save: boolean = false) {
+    public constructor(view: QKView);
+    public constructor(view?: QKView) {
         // Assign the proper view or create it
         if (view) {
             this.view = view;
@@ -24,10 +25,8 @@ export class View { // TODO: Z index // TODO: center convenience method
             this.view = new QKView();
         }
 
-        // Save the view if created new QKView or wants to be saved
-        if (!view || save) {
-            this.saveJSView();
-        }
+        // Save the JSView
+        this.saveJSView();
     }
 
     /// This saves this view to the QKView.jsView
@@ -48,9 +47,16 @@ export class View { // TODO: Z index // TODO: center convenience method
     }
 
     /* View hierarchy */
-    public get superview(): View | undefined { return this.view.jsSuperview; }
-    public get subviews(): View[] { return this.view.jsSubviews; }
-    public addSubview(view: View) { this.view.jsAddSubview(view); }
+    public get superview(): View | undefined {
+        if (this.view.jsSuperview) {
+            return this.view.jsSuperview.jsView;
+        }
+        return undefined;
+    }
+    public get subviews(): View[] {
+        return this.view.jsSubviews.map(x => x.jsView);
+    }
+    public addSubview(view: View) { this.view.jsAddSubview(view.view); }
     public removeFromSuperview() { this.view.jsRemoveFromSuperview(); }
 
     /* Events */
@@ -83,8 +89,8 @@ export class View { // TODO: Z index // TODO: center convenience method
     public get alpha(): number { return this.view.jsAlpha; }
     public set alpha(newValue: number) { this.view.jsAlpha = newValue; }
 
-    public get shadow(): Shadow { return this.view.jsShadow; }
-    public set shadow(newValue: Shadow) { this.view.jsShadow = newValue; }
+    public get shadow(): Shadow | undefined { return this.view.jsShadow; }
+    public set shadow(newValue: Shadow | undefined) { this.view.jsShadow = newValue; }
 
     public get cornerRadius(): number { return this.view.jsCornerRadius; }
     public set cornerRadius(newValue: number) { this.view.jsCornerRadius = newValue; }

@@ -10,8 +10,8 @@ import { Logger } from "../utils/Logger";
 export class Window {
     protected window: QKWindow;
 
-    get rootView(): View { return this.window.jsRootView; }
-    set rootView(newValue: View) { this.window.jsRootView = newValue; }
+    get rootView(): View { return this.window.jsRootView.jsView; }
+    set rootView(newValue: View) { this.window.jsRootView = newValue.view; }
 
     public theme: Theme;
 

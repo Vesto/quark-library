@@ -6,15 +6,15 @@ import { Shadow } from "../types/Shadow";
 declare module "quark-native" {
     export class QKView {
         /* JavaScript Interop */
-        public jsView?: View;
+        public jsView: View;
 
         /* Positioning */
         public jsRect: Rect;
 
         /* View hierarchy */
-        public readonly jsSubviews: View[];
-        public readonly jsSuperview?: View;
-        public jsAddSubview(view: any): void;
+        public readonly jsSubviews: QKView[];
+        public readonly jsSuperview?: QKView;
+        public jsAddSubview(view: QKView): void;
         public jsRemoveFromSuperview(): void;
 
         /* Events */
@@ -27,7 +27,7 @@ declare module "quark-native" {
         /* Style */
         public jsBackgroundColor: Color;
         public jsAlpha: number;
-        public jsShadow: Shadow;
+        public jsShadow: Shadow | undefined;
         public jsCornerRadius: number;
 
         /* Initiator */
