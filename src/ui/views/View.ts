@@ -8,8 +8,9 @@ import { InteractionEvent } from "../events/InteractionEvent";
 import { KeyEvent } from "../events/KeyEvent";
 import { ScrollEvent } from "../events/ScrollEvent";
 import { Logger } from "../../utils/Logger";
+import { EventResponder } from "../events/EventResponder";
 
-export class View {
+export class View implements EventResponder {
     /// The QKView backing this view object.
     public view: QKView;
 
@@ -60,16 +61,19 @@ export class View {
     public removeFromSuperview() { this.view.jsRemoveFromSuperview(); }
 
     /* Events */
-    public interactionEvent(event: InteractionEvent) {
-        Logger.print(`Interaction ${event}`);
+    public interactionEvent(event: InteractionEvent): boolean {
+        // Override point
+        return false;
     }
 
-    public keyEvent(event: KeyEvent) {
-        Logger.print(`Key ${event}`);
+    public keyEvent(event: KeyEvent): boolean {
+        // Override point
+        return false;
     }
 
-    public scrollEvent(event: ScrollEvent) {
-        Logger.print(`Scroll ${event}`);
+    public scrollEvent(event: ScrollEvent): boolean {
+        // Override point
+        return false;
     }
 
     /* Layout */

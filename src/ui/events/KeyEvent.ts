@@ -1,5 +1,4 @@
 import { Event } from "./Event";
-import keycode = require("keycode");
 
 export enum KeyPhase {
     KeyDown, KeyUp
@@ -21,7 +20,10 @@ export class KeyEvent extends Event {
     }
 
     get keyName(): string {
-        // Convert the key code to the key name
-        return keycode(this.keyCode);
+        // TODO: Do this. This is (I think) platform-dependent, maybe make Quark look this up
+        // Look at /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/Headers/Events.h
+        // Maybe have the computer map from a their keymap to a standard keymap (HTML5?)
+        // There must be some standard online
+        return `<unavailable>`;
     }
 }
