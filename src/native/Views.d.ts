@@ -14,7 +14,7 @@ declare module "quark-native" {
         /* View hierarchy */
         public readonly jsSubviews: QKView[];
         public readonly jsSuperview?: QKView;
-        public jsAddSubview(view: QKView): void;
+        public jsAddSubview(view: QKView, index: number): void;
         public jsRemoveFromSuperview(): void;
 
         /* Events */

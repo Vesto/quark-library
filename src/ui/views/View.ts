@@ -7,7 +7,6 @@ import { Point } from "../../types/Point";
 import { InteractionEvent } from "../events/InteractionEvent";
 import { KeyEvent } from "../events/KeyEvent";
 import { ScrollEvent } from "../events/ScrollEvent";
-import { Logger } from "../../utils/Logger";
 import { EventResponder } from "../events/EventResponder";
 
 export class View implements EventResponder {
@@ -57,7 +56,11 @@ export class View implements EventResponder {
     public get subviews(): View[] {
         return this.view.jsSubviews.map(x => x.jsView);
     }
-    public addSubview(view: View) { this.view.jsAddSubview(view.view); }
+    public addSubviewAt(view: View, index: number) {
+        let newIndex = Math.min(Math.max(Math.floor(index), 0), this.subviews.length);
+        this.view.jsAddSubview(view.view, newIndex);
+    }
+    public addSubview(view: View) { this.addSubviewAt(view, this.subviews.length); }
     public removeFromSuperview() { this.view.jsRemoveFromSuperview(); }
 
     /* Events */
