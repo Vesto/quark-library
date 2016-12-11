@@ -1,5 +1,6 @@
 import { Point } from "../../types/Point";
 import { Event, EventPhase } from "./Event";
+import { Vector } from "../../types/Vector";
 
 export class ScrollEvent extends Event {
     public constructor(
@@ -7,7 +8,7 @@ export class ScrollEvent extends Event {
         public readonly phase: EventPhase,
         // public readonly momentumPhase: EventPhase, // On macOS when scrolling, there is momentum when decelerating
         public readonly location: Point,
-        public readonly deltaScroll: Point // TODO: Convert to a Vector object
+        public readonly deltaScroll: Vector
     ) {
         super(time);
     }

@@ -10,6 +10,7 @@ export * from "./types/Point";
 export * from "./types/Rect";
 export * from "./types/Shadow";
 export * from "./types/Size";
+export * from "./types/Vector";
 
 // ui
 export * from "./ui/Sidebar";
