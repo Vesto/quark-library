@@ -3,6 +3,8 @@ import { Image } from "../../types/Image";
 import { Control } from "./Control";
 
 import { QKButton } from "quark-native";
+import { InteractionEvent, InteractionType } from "../events/InteractionEvent";
+import { EventPhase } from "../events/Event";
 
 export interface ButtonHandler { (button: Button): void; }
 
@@ -26,5 +28,21 @@ export class Button extends View implements Control {
 
     public constructor() {
         super(new QKButton());
+    }
+
+    public interactionEvent(event: InteractionEvent): boolean {
+        // Check if it should absorb the event and call the callbacks
+        if (event.type === InteractionType.LeftMouse) {
+            if (event.phase === EventPhase.Began && typeof this.buttonDownHandler !== "undefined") {
+                this.buttonDownHandler(this);
+                return true;
+            } else if (event.phase === EventPhase.Ended && typeof this.buttonUpHandler !== "undefined") {
+                this.buttonUpHandler(this);
+                return true;
+            }
+        }
+
+        // Otherwise let the superclass handle it
+        return super.interactionEvent(event);
     }
 }
