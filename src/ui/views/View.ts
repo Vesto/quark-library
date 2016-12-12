@@ -46,6 +46,27 @@ export class View implements EventResponder {
         );
     }
 
+    public get absolutePoint(): Point {
+        // Add transforms until it's at the topmost superview
+        let origin = new Point(0, 0);
+        let s: View | undefined = this;
+        while (s && s.superview) {
+            origin = origin.add(s.rect.point);
+            s = s.superview;
+        }
+
+        // Return it
+        return origin;
+    }
+
+    public convertPointFrom(view: View, point: Point): Point {
+        return point.subtract(this.absolutePoint).add(view.absolutePoint);
+    }
+
+    public convertPointTo(view: View, point: Point): Point {
+        return view.convertPointFrom(this, point);
+    }
+
     /* View hierarchy */
     public get superview(): View | undefined {
         if (this.view.jsSuperview) {

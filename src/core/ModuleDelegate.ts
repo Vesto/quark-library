@@ -1,8 +1,8 @@
-import { Action } from "./actions/Action";
-import { Window } from "./ui/Window";
+import { Action } from "../actions/Action";
+import { Window } from "../ui/Window";
 
-import { ToolbarItem } from "./ui/ToolbarItem";
-import { EventResponder } from "./ui/events/EventResponder";
+import { ToolbarItem } from "../ui/ToolbarItem";
+import { EventResponder } from "../ui/events/EventResponder";
 
 export interface ModuleDelegate extends EventResponder {
     /// Returns a list of actions to put in the toolbar.

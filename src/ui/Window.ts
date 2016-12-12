@@ -5,7 +5,7 @@ import { ToolbarItem } from "./ToolbarItem";
 import { Theme } from "./Theme";
 
 import { QKWindow } from "quark-native";
-import { Logger } from "../utils/Logger";
+import { Logger } from "../core/Logger";
 
 export class Window {
     protected window: QKWindow;

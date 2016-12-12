@@ -1,4 +1,4 @@
-import { UUID } from "./types/UUID";
+import { UUID } from "../types/UUID";
 
 export class Device {
     public uniqueId: UUID;

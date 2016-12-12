@@ -1,6 +1,13 @@
 // actions
 export * from "./actions/Action";
 
+// core
+export * from "./core/Device";
+export * from "./core/Logger";
+export * from "./core/Module";
+export * from "./core/ModuleDelegate";
+export * from "./core/User";
+
 // types
 export * from "./types/Color";
 export * from "./types/Edges";
@@ -45,7 +52,3 @@ export * from "./ui/views/WebView";
 // ui/views/containers
 export * from "./ui/views/containers/SplitContainer";
 export * from "./ui/views/containers/TabContainer";
-
-// utils
-export * from "./utils/Logger";
-export * from "./ModuleDelegate";
