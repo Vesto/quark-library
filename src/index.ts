@@ -31,6 +31,9 @@ export * from "./ui/events/InteractionEvent";
 export * from "./ui/events/KeyEvent";
 export * from "./ui/events/ScrollEvent";
 
+// ui/properties
+export * from "./ui/properties/Text";
+
 // ui/views
 export * from "./ui/views/ActivityIndicator";
 export * from "./ui/views/Button";

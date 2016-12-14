@@ -1,10 +1,9 @@
 import { View } from "./View";
 import { Image } from "../../types/Image";
 import { Control } from "./Control";
-
-import { QKButton } from "quark-native";
 import { InteractionEvent, InteractionType } from "../events/InteractionEvent";
 import { EventPhase } from "../events/Event";
+import { QKButton } from "quark-native";
 
 export interface ButtonHandler { (button: Button): void; }
 

@@ -1,13 +1,12 @@
 import { Color } from "../../types/Color";
 import { Rect } from "../../types/Rect";
 import { Shadow } from "../../types/Shadow";
-
-import { QKView } from "quark-native";
 import { Point } from "../../types/Point";
 import { InteractionEvent } from "../events/InteractionEvent";
 import { KeyEvent } from "../events/KeyEvent";
 import { ScrollEvent } from "../events/ScrollEvent";
 import { EventResponder } from "../events/EventResponder";
+import { QKView } from "quark-native";
 
 export class View implements EventResponder {
     /// The QKView backing this view object.
