@@ -8,42 +8,49 @@ import { Color } from "../../types/Color";
 import { Shadow } from "../../types/Shadow";
 
 // Interface for what `quark-native` needs to implement with prototypes
-export interface View {
-    qk_init(createView: boolean): void;
+export interface ViewBacking {
+    qk_view?: View;
+    qk_getOrCreateView(): View;
 
-    qk_rect(): Rect;
-    qk_setRect(rect: Rect): void;
+    qk_init(): void;
+
+    qk_rect: Rect;
 
     qk_subviews(): View[];
     qk_superview(): View | undefined;
     qk_addSubview(view: View, index: number): void;
     qk_removeFromSuperview(): void;
 
-    qk_isHidden(): boolean;
-    qk_setHidden(hidden: boolean): void;
+    qk_isHidden: boolean;
 
-    qk_backgroundColor(): Color;
-    qk_setBackgroundColor(color: Color): void;
-    qk_alpha(): number;
-    qk_setAlpha(alpha: number): void;
-    qk_shadow(): Shadow | undefined;
-    qk_setShadow(shadow: Shadow | undefined): void;
-    qk_cornerRadius(): number;
-    qk_setCornerRadius(radius: number): void;
-
+    qk_backgroundColor: Color;
+    qk_alpha: number;
+    qk_shadow: Shadow | undefined;
+    qk_cornerRadius: number;
 }
 
 export class View implements EventResponder {
+    public static backingInit: () => ViewBacking;
+
+    public backing: ViewBacking;
+
     public name: string = "";
 
-    public constructor(createView: boolean = false) {
+    public constructor();
+    public constructor(backing: ViewBacking);
+    public constructor(backing?: ViewBacking) {
         // Initialize
-        this.qk_init(createView);
+        if (backing) {
+            this.backing = backing;
+        } else {
+            this.backing = View.backingInit();
+        }
+        this.backing.qk_init();
     }
 
     /* Positioning */
-    public get rect(): Rect { return this.qk_rect(); }
-    public set rect(rect: Rect) { this.qk_setRect(rect); }
+    public get rect(): Rect { return this.backing.qk_rect; }
+    public set rect(rect: Rect) { this.backing.qk_rect = rect; }
 
     public get center(): Point { return this.rect.center; }
     public set center(value: Point) {
@@ -76,17 +83,17 @@ export class View implements EventResponder {
 
     /* View hierarchy */
     public get superview(): View | undefined {
-        return this.qk_superview();
+        return this.backing.qk_superview();
     }
     public get subviews(): View[] {
-        return this.qk_subviews();
+        return this.backing.qk_subviews();
     }
     public addSubviewAt(view: View, index: number) {
         let newIndex = Math.min(Math.max(Math.floor(index), 0), this.subviews.length);
-        this.qk_addSubview(view, newIndex);
+        this.backing.qk_addSubview(view, newIndex);
     }
     public addSubview(view: View) { this.addSubviewAt(view, this.subviews.length); }
-    public removeFromSuperview() { this.qk_removeFromSuperview(); }
+    public removeFromSuperview() { this.backing.qk_removeFromSuperview(); }
 
     /* Events */
     public interactionEvent(event: InteractionEvent): boolean {
@@ -111,42 +118,19 @@ export class View implements EventResponder {
     }
 
     /* Visibility */
-    public get isHidden(): boolean { return this.qk_isHidden(); }
-    public set isHidden(value: boolean) { this.qk_setHidden(value); }
+    public get isHidden(): boolean { return this.backing.qk_isHidden; }
+    public set isHidden(value: boolean) { this.backing.qk_isHidden = value; }
 
     /* Style */
-    public get backgroundColor(): Color { return this.qk_backgroundColor(); }
-    public set backgroundColor(color: Color) { this.qk_setBackgroundColor(color); }
+    public get backgroundColor(): Color { return this.backing.qk_backgroundColor; }
+    public set backgroundColor(color: Color) { this.backing.qk_backgroundColor = color; }
 
-    public get opacity(): number { return this.qk_alpha(); }
-    public set alpha(value: number) { this.qk_setAlpha(value); }
+    public get opacity(): number { return this.backing.qk_alpha; }
+    public set alpha(value: number) { this.backing.qk_alpha = value; }
 
-    public get shadow(): Shadow | undefined { return this.qk_shadow(); }
-    public set shadow(shadow: Shadow | undefined) { this.qk_setShadow(shadow); }
+    public get shadow(): Shadow | undefined { return this.backing.qk_shadow; }
+    public set shadow(shadow: Shadow | undefined) { this.backing.qk_shadow = shadow; }
 
-    public get cornerRadius(): number { return this.qk_cornerRadius(); }
-    public set cornerRadius(value: number) { this.qk_setCornerRadius(value); }
-
-    /* Quark implementation methods */
-    // public qk_init: (createView: boolean) => void;
-    //
-    // public qk_rect: () => Rect;
-    // public qk_setRect: (rect: Rect) => void;
-    //
-    // public qk_subviews: () => View[];
-    // public qk_superview: () => View | undefined;
-    // public qk_addSubview: (view: View, index: number) => void;
-    // public qk_removeFromSuperview: () => void;
-    //
-    // public qk_isHidden: () => boolean;
-    // public qk_setHidden: (hidden: boolean) => void;
-    //
-    // public qk_backgroundColor: () => Color;
-    // public qk_setBackgroundColor: (color: Color) => void;
-    // public qk_alpha: () => number;
-    // public qk_setAlpha: (opacity: number) => void;
-    // public qk_shadow: () => Shadow | undefined;
-    // public qk_setShadow: (shadow: Shadow | undefined) => void;
-    // public qk_cornerRadius: () => number;
-    // public qk_setCornerRadius: (radius: number) => void;
+    public get cornerRadius(): number { return this.backing.qk_cornerRadius; }
+    public set cornerRadius(value: number) { this.backing.qk_cornerRadius = value; }
 }
