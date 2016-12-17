@@ -1,0 +1,1 @@
+`quark-library` is responsible for wrapping the interfaces provided by `quark-native` (just `quark-html5` right now) into an easy-to-use and elegant API

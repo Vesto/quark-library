@@ -5,6 +5,7 @@
     "member-ordering": false,
     "no-reference": false,
     "ordered-imports": false,
-    "max-line-length": false
+    "max-line-length": false,
+    "variable-name": false
   }
 }

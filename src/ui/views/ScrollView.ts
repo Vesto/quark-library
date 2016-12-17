@@ -1,7 +1,6 @@
 import { View } from "./View";
 import { Point } from "../../types/Point";
 import { Edges } from "../../types/Edges";
-import { Size } from "../../types/Size";
 
 export class ScrollView extends View {
     public contentView: View; // Size of view determines the scroll view content size // TODO: Implement

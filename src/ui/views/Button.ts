@@ -1,19 +1,16 @@
 import { View } from "./View";
-import { Image } from "../../types/Image";
 import { Control } from "./Control";
 import { InteractionEvent, InteractionType } from "../events/InteractionEvent";
 import { EventPhase } from "../events/Event";
-import { QKButton } from "quark-native";
+import { Image } from "../../types/Image";
 
 export interface ButtonHandler { (button: Button): void; }
 
 export enum ButtonStyle { Borderless, Bordered }
 
 export class Button extends View implements Control {
-    protected get button(): QKButton { return this.view as QKButton; }
-
-    get title(): string { return this.button.jsTitle; }
-    set title(newValue: string) { this.button.jsTitle = newValue; }
+    // get title(): string { return this.button.jsTitle; } // TODO: Add back
+    // set title(newValue: string) { this.button.jsTitle = newValue; }
 
     public image?: Image; // TODO: Implement
 
@@ -26,7 +23,7 @@ export class Button extends View implements Control {
     public buttonUpHandler?: ButtonHandler; // TODO: Implement
 
     public constructor() {
-        super(new QKButton());
+        super();
     }
 
     public interactionEvent(event: InteractionEvent): boolean {

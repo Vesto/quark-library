@@ -1,5 +1,5 @@
-import { Point } from "../../types/Point";
 import { Event, EventPhase } from "./Event";
+import { Point } from "../../types/Point";
 
 /*
 Touch is for touchscreen, stylus is for touchscreen and eventually real styluses

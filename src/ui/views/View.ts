@@ -1,46 +1,54 @@
-import { Color } from "../../types/Color";
-import { Rect } from "../../types/Rect";
-import { Shadow } from "../../types/Shadow";
-import { Point } from "../../types/Point";
 import { InteractionEvent } from "../events/InteractionEvent";
 import { KeyEvent } from "../events/KeyEvent";
 import { ScrollEvent } from "../events/ScrollEvent";
 import { EventResponder } from "../events/EventResponder";
-import { QKView } from "quark-native";
+import { Rect } from "../../types/Rect";
+import { Point } from "../../types/Point";
+import { Color } from "../../types/Color";
+import { Shadow } from "../../types/Shadow";
+
+// Interface for what `quark-native` needs to implement with prototypes
+export interface View {
+    qk_init(createView: boolean): void;
+
+    qk_rect(): Rect;
+    qk_setRect(rect: Rect): void;
+
+    qk_subviews(): View[];
+    qk_superview(): View | undefined;
+    qk_addSubview(view: View, index: number): void;
+    qk_removeFromSuperview(): void;
+
+    qk_isHidden(): boolean;
+    qk_setHidden(hidden: boolean): void;
+
+    qk_backgroundColor(): Color;
+    qk_setBackgroundColor(color: Color): void;
+    qk_alpha(): number;
+    qk_setAlpha(alpha: number): void;
+    qk_shadow(): Shadow | undefined;
+    qk_setShadow(shadow: Shadow | undefined): void;
+    qk_cornerRadius(): number;
+    qk_setCornerRadius(radius: number): void;
+
+}
 
 export class View implements EventResponder {
-    /// The QKView backing this view object.
-    public view: QKView;
-
     public name: string = "";
 
-    public constructor();
-    public constructor(view: QKView);
-    public constructor(view?: QKView) {
-        // Assign the proper view or create it
-        if (view) {
-            this.view = view;
-        } else {
-            this.view = new QKView();
-        }
-
-        // Save the JSView
-        this.saveJSView();
-    }
-
-    /// This saves this view to the QKView.jsView
-    protected saveJSView() {
-        this.view.jsView = this;
+    public constructor(createView: boolean = false) {
+        // Initialize
+        this.qk_init(createView);
     }
 
     /* Positioning */
-    public get rect(): Rect { return this.view.jsRect; }
-    public set rect(rect: Rect) { this.view.jsRect = rect; }
+    public get rect(): Rect { return this.qk_rect(); }
+    public set rect(rect: Rect) { this.qk_setRect(rect); }
 
     public get center(): Point { return this.rect.center; }
-    public set center(newValue: Point) {
+    public set center(value: Point) {
         this.rect = new Rect(
-            new Point(newValue.x - this.rect.width / 2, newValue.y - this.rect.height / 2),
+            new Point(value.x - this.rect.width / 2, value.y - this.rect.height / 2),
             this.rect.size
         );
     }
@@ -68,20 +76,17 @@ export class View implements EventResponder {
 
     /* View hierarchy */
     public get superview(): View | undefined {
-        if (this.view.jsSuperview) {
-            return this.view.jsSuperview.jsView;
-        }
-        return undefined;
+        return this.qk_superview();
     }
     public get subviews(): View[] {
-        return this.view.jsSubviews.map(x => x.jsView);
+        return this.qk_subviews();
     }
     public addSubviewAt(view: View, index: number) {
         let newIndex = Math.min(Math.max(Math.floor(index), 0), this.subviews.length);
-        this.view.jsAddSubview(view.view, newIndex);
+        this.qk_addSubview(view, newIndex);
     }
     public addSubview(view: View) { this.addSubviewAt(view, this.subviews.length); }
-    public removeFromSuperview() { this.view.jsRemoveFromSuperview(); }
+    public removeFromSuperview() { this.qk_removeFromSuperview(); }
 
     /* Events */
     public interactionEvent(event: InteractionEvent): boolean {
@@ -106,19 +111,42 @@ export class View implements EventResponder {
     }
 
     /* Visibility */
-    public get hidden(): boolean { return this.view.jsHidden; }
-    public set hidden(newValue: boolean) { this.view.jsHidden = newValue; }
+    public get isHidden(): boolean { return this.qk_isHidden(); }
+    public set isHidden(value: boolean) { this.qk_setHidden(value); }
 
     /* Style */
-    public get backgroundColor(): Color { return this.view.jsBackgroundColor; }
-    public set backgroundColor(newValue: Color) { this.view.jsBackgroundColor = newValue; }
+    public get backgroundColor(): Color { return this.qk_backgroundColor(); }
+    public set backgroundColor(color: Color) { this.qk_setBackgroundColor(color); }
 
-    public get alpha(): number { return this.view.jsAlpha; }
-    public set alpha(newValue: number) { this.view.jsAlpha = newValue; }
+    public get opacity(): number { return this.qk_alpha(); }
+    public set alpha(value: number) { this.qk_setAlpha(value); }
 
-    public get shadow(): Shadow | undefined { return this.view.jsShadow; }
-    public set shadow(newValue: Shadow | undefined) { this.view.jsShadow = newValue; }
+    public get shadow(): Shadow | undefined { return this.qk_shadow(); }
+    public set shadow(shadow: Shadow | undefined) { this.qk_setShadow(shadow); }
 
-    public get cornerRadius(): number { return this.view.jsCornerRadius; }
-    public set cornerRadius(newValue: number) { this.view.jsCornerRadius = newValue; }
+    public get cornerRadius(): number { return this.qk_cornerRadius(); }
+    public set cornerRadius(value: number) { this.qk_setCornerRadius(value); }
+
+    /* Quark implementation methods */
+    // public qk_init: (createView: boolean) => void;
+    //
+    // public qk_rect: () => Rect;
+    // public qk_setRect: (rect: Rect) => void;
+    //
+    // public qk_subviews: () => View[];
+    // public qk_superview: () => View | undefined;
+    // public qk_addSubview: (view: View, index: number) => void;
+    // public qk_removeFromSuperview: () => void;
+    //
+    // public qk_isHidden: () => boolean;
+    // public qk_setHidden: (hidden: boolean) => void;
+    //
+    // public qk_backgroundColor: () => Color;
+    // public qk_setBackgroundColor: (color: Color) => void;
+    // public qk_alpha: () => number;
+    // public qk_setAlpha: (opacity: number) => void;
+    // public qk_shadow: () => Shadow | undefined;
+    // public qk_setShadow: (shadow: Shadow | undefined) => void;
+    // public qk_cornerRadius: () => number;
+    // public qk_setCornerRadius: (radius: number) => void;
 }

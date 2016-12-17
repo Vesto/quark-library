@@ -1,7 +1,5 @@
-import { UUID } from "../types/UUID";
-
 export class Device {
-    public uniqueId: UUID;
+    public uniqueId: string;
 
     // TODO: Input like accelerometer, gyro, etc.
 }
