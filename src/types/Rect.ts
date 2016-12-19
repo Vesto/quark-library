@@ -22,6 +22,10 @@ export class Rect {
         }
     }
 
+    public static get zero(): Rect {
+        return new Rect(Point.zero, Size.zero);
+    }
+
     get x(): number { return this.point.x; }
     get y(): number { return this.point.y; }
     get width(): number { return this.size.width; }

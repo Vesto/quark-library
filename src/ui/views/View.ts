@@ -44,6 +44,7 @@ export class View implements EventResponder {
             this.backing = backing;
         } else {
             this.backing = View.backingInit();
+            // TODO: Set the default values for the new view
         }
         this.backing.qk_init();
     }
