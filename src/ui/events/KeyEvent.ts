@@ -1,7 +1,7 @@
 import { Event } from "./Event";
 
 export enum KeyPhase {
-    KeyDown, KeyUp
+    Down, Repeat, Up
 }
 
 export enum KeyModifier {
@@ -11,12 +11,12 @@ export enum KeyModifier {
 export class KeyEvent extends Event {
     public constructor(
         time: number,
+        rawEvent: any,
         public readonly phase: KeyPhase,
-        public readonly isRepeat: boolean,
         public readonly keyCode: number, // https://www.npmjs.com/package/keycode
         public readonly modifiers: KeyModifier[]
     ) {
-        super(time);
+        super(time, rawEvent);
     }
 
     get keyName(): string {
