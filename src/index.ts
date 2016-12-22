@@ -43,6 +43,7 @@ export * from "./ui/views/ImageView";
 export * from "./ui/views/Label";
 export * from "./ui/views/ListView";
 export * from "./ui/views/ProgressBar";
+export * from "./ui/views/RootView";
 export * from "./ui/views/ScrollView";
 export * from "./ui/views/SegmentedController";
 export * from "./ui/views/Slider";

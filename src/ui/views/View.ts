@@ -16,8 +16,8 @@ export interface ViewBacking {
 
     qk_rect: Rect;
 
-    qk_subviews(): View[];
-    qk_superview(): View | undefined;
+    qk_subviews: View[];
+    qk_superview: View | undefined;
     qk_addSubview(view: View, index: number): void;
     qk_removeFromSuperview(): void;
 
@@ -85,10 +85,10 @@ export class View implements EventResponder {
 
     /* View hierarchy */
     public get superview(): View | undefined {
-        return this.backing.qk_superview();
+        return this.backing.qk_superview;
     }
     public get subviews(): View[] {
-        return this.backing.qk_subviews();
+        return this.backing.qk_subviews;
     }
     public addSubviewAt(view: View, index: number) {
         let newIndex = Math.min(Math.max(Math.floor(index), 0), this.subviews.length);

@@ -4,9 +4,14 @@ import { ToolbarItem } from "./ToolbarItem";
 import { Theme } from "./Theme";
 import { Point } from "../types/Point";
 
+export interface WindowBacking {
+     readonly qk_rootView: View;
+}
+
 export class Window {
-    // get rootView(): View { return this.window.jsRootView.jsView; }
-    // set rootView(newValue: View) { this.window.jsRootView = newValue.view; }
+    public backing: WindowBacking;
+
+    get rootView(): View { return this.backing.qk_rootView; }
 
     public theme: Theme;
 
@@ -15,8 +20,8 @@ export class Window {
     public readonly leftSidebars: Sidebar[];
     public readonly rightSidebars: Sidebar[];
 
-    constructor() {
-
+    public constructor(backing: WindowBacking) {
+        this.backing = backing;
     }
 
     public popover(view: View, from: View | Point): void {

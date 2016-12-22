@@ -14,3 +14,7 @@ export interface ModuleDelegate extends EventResponder {
     /// Called when the module should create the interface.
     createInterface(window: Window): void;
 }
+
+export interface ModuleDelegateConstructor {
+    new(): ModuleDelegate;
+}

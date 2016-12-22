@@ -1,4 +1,4 @@
-import { View } from "./View";
+import { View, ViewBacking } from "./View";
 import { Control } from "./Control";
 import { InteractionEvent, InteractionType } from "../events/InteractionEvent";
 import { EventPhase } from "../events/Event";
@@ -8,9 +8,15 @@ export interface ButtonHandler { (button: Button): void; }
 
 export enum ButtonStyle { Borderless, Bordered }
 
+export interface ButtonBacking extends ViewBacking {
+    qk_title: string;
+}
+
 export class Button extends View implements Control {
-    // get title(): string { return this.button.jsTitle; } // TODO: Add back
-    // set title(newValue: string) { this.button.jsTitle = newValue; }
+    get buttonBacking(): ButtonBacking { return this.backing as ButtonBacking; }
+
+    get title(): string { return this.buttonBacking.qk_title; } // TODO: Add back
+    set title(newValue: string) { this.buttonBacking.qk_title = newValue; }
 
     public image?: Image; // TODO: Implement
 
@@ -19,8 +25,8 @@ export class Button extends View implements Control {
 
     public isEnabled: boolean;
 
-    public buttonDownHandler?: ButtonHandler; // TODO: Implement // TODO: Manually call these from View events
-    public buttonUpHandler?: ButtonHandler; // TODO: Implement
+    public buttonDownHandler?: ButtonHandler;
+    public buttonUpHandler?: ButtonHandler;
 
     public constructor() {
         super();

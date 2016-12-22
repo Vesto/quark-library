@@ -26,19 +26,19 @@ export class Rect {
         return new Rect(Point.zero, Size.zero);
     }
 
-    get x(): number { return this.point.x; }
-    get y(): number { return this.point.y; }
-    get width(): number { return this.size.width; }
-    get height(): number { return this.size.height; }
+    public get x(): number { return this.point.x; }
+    public get y(): number { return this.point.y; }
+    public get width(): number { return this.size.width; }
+    public get height(): number { return this.size.height; }
 
-    get center(): Point {
+    public get center(): Point {
         return new Point(
             this.x + this.width / 2,
             this.y + this.height / 2
         );
     }
 
-    get bounds(): Rect {
+    public get bounds(): Rect {
         return new Rect(
             0, 0,
             this.width - this.x,
