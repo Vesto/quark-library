@@ -22,6 +22,7 @@ export interface ViewBacking {
     qk_removeFromSuperview(): void;
 
     qk_isHidden: boolean;
+    qk_clipSubviews: boolean;
 
     qk_backgroundColor: Color;
     qk_alpha: number;
@@ -122,6 +123,9 @@ export class View implements EventResponder {
     /* Visibility */
     public get isHidden(): boolean { return this.backing.qk_isHidden; }
     public set isHidden(value: boolean) { this.backing.qk_isHidden = value; }
+
+    public get clipSubviews(): boolean { return this.backing.qk_clipSubviews; }
+    public set clipSubviews(value: boolean) { this.backing.qk_clipSubviews = value; }
 
     /* Style */
     public get backgroundColor(): Color { return this.backing.qk_backgroundColor; }
