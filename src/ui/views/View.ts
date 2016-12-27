@@ -6,11 +6,12 @@ import { Rect } from "../../types/Rect";
 import { Point } from "../../types/Point";
 import { Color } from "../../types/Color";
 import { Shadow } from "../../types/Shadow";
+import { Module } from "../../core/Module";
 
 // Interface for what `quark-native` needs to implement with prototypes
 export interface ViewBacking {
     qk_view?: View;
-    qk_getOrCreateView(): View;
+    qk_getOrCreateView(module: Module): View;
 
     qk_init(): void;
 
@@ -31,24 +32,26 @@ export interface ViewBacking {
 }
 
 export class View implements EventResponder {
-    public static backingInit: () => ViewBacking;
+    public static createBacking: () => ViewBacking;
+    public readonly backing: ViewBacking;
 
-    public backing: ViewBacking;
+    // A reference to the module this view is in
+    public readonly module: Module;
 
     public name: string = "";
 
-    public constructor();
-    public constructor(backing: ViewBacking);
     public constructor(backing?: ViewBacking) {
-        // Initialize
-        if (backing) {
-            this.backing = backing;
-        } else {
-            this.backing = View.backingInit();
-            // TODO: Set the default values for the new view
-        }
+        // Check inside VM, save instance of module backing
+        this.module = Module.shared;
+
+        // Initialize and save the backing
+        this.backing = backing ? backing : View.createBacking();
         this.backing.qk_view = this;
         this.backing.qk_init();
+
+        // Set the default values on the view if it's new
+        // TODO: Set the default values for the new view
+        // We are assuming that all views that are used by Quark have to be initialized by Quark
     }
 
     /* Positioning */

@@ -14,7 +14,8 @@ export interface LabelBacking extends ViewBacking {
 }
 
 export class Label extends View {
-    get labelBacking(): LabelBacking { return this.backing as LabelBacking; }
+    public static createBacking: () => LabelBacking;
+    public get labelBacking(): LabelBacking { return this.backing as LabelBacking; }
 
     public get text(): string { return this.labelBacking.qk_text; } // TODO: Add back
     public set text(newValue: string) { this.labelBacking.qk_text = newValue; }
@@ -34,7 +35,7 @@ export class Label extends View {
     public get alignmentMode(): TextAlignmentMode { return this.labelBacking.qk_alignmentMode; }
     public set alignmentMode(newValue: TextAlignmentMode) { this.labelBacking.qk_alignmentMode = newValue; }
 
-    public constructor() {
-        super();
+    public constructor(backing?: LabelBacking) {
+        super(backing ? backing : Label.createBacking());
     }
 }

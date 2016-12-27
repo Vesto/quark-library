@@ -4,6 +4,9 @@ import { Rect } from "../../types/Rect";
 export class RootView extends View {
     public constructor(backing: ViewBacking) {
         super(backing);
+
+        // Force layout at beginning
+        this.layout();
     }
 
     // Don't allow manipulation of the rect and just return the size rect

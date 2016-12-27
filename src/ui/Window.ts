@@ -9,7 +9,7 @@ export interface WindowBacking {
 }
 
 export class Window {
-    public backing: WindowBacking;
+    public readonly backing: WindowBacking;
 
     get rootView(): View { return this.backing.qk_rootView; }
 

@@ -13,7 +13,8 @@ export interface ButtonBacking extends ViewBacking {
 }
 
 export class Button extends View implements Control {
-    get buttonBacking(): ButtonBacking { return this.backing as ButtonBacking; }
+    public static createBacking: () => ButtonBacking;
+    public get buttonBacking(): ButtonBacking { return this.backing as ButtonBacking; }
 
     get title(): string { return this.buttonBacking.qk_title; } // TODO: Add back
     set title(newValue: string) { this.buttonBacking.qk_title = newValue; }
@@ -28,8 +29,8 @@ export class Button extends View implements Control {
     public buttonDownHandler?: ButtonHandler;
     public buttonUpHandler?: ButtonHandler;
 
-    public constructor() {
-        super();
+    public constructor(backing?: ButtonBacking) {
+        super(backing ? backing : Button.createBacking());
     }
 
     public interactionEvent(event: InteractionEvent): boolean {

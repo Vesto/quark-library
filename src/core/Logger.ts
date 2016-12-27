@@ -1,8 +1,11 @@
+export interface LoggerBacking {
+    qk_output(message: any[]): void;
+}
+
 export class Logger {
-    // TODO: Look at how console.log is done
     // TODO: Rename to Log or create a standard Output class and have an Output for the console
 
-    public static qk_output: (messages: any[]) => void;
+    private static backing: LoggerBacking;
 
     /// Prints text to the console with a new line.
     public static print(...messages: any[]) {
@@ -11,6 +14,6 @@ export class Logger {
 
     /// Outputs raw text to the console.
     public static output(messages: any[]) {
-        this.qk_output(messages);
+        this.backing.qk_output(messages);
     }
 }
