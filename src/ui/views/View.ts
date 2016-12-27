@@ -11,7 +11,6 @@ import { Module } from "../../core/Module";
 // Interface for what `quark-native` needs to implement with prototypes
 export interface ViewBacking {
     qk_view?: View;
-    qk_getOrCreateView(module: Module): View;
 
     qk_init(): void;
 
