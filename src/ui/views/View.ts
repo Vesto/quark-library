@@ -15,6 +15,7 @@ export interface ViewBacking {
     qk_view?: View;
 
     qk_init(): void;
+    qk_appearanceChanged(appearance: Appearance): void;
 
     qk_rect: Rect;
 
@@ -68,7 +69,6 @@ export class View implements EventResponder {
     private _appearance: Appearance;
     public get appearance(): Appearance { return this._appearance; }
     public set appearance(appearance: Appearance) {
-        Logger.print("Set appearance", this);
         // Make sure the appearance has actually changed
         if (this._appearance === appearance) { return; }
 
@@ -85,7 +85,9 @@ export class View implements EventResponder {
     }
 
     public appearanceChanged(appearance: Appearance) {
-        Logger.print("Appearance changed");
+        // Notify the backing
+        this.backing.qk_appearanceChanged(appearance);
+
         // Override point for subviews
     }
 
