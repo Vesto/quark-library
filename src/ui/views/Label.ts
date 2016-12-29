@@ -7,7 +7,7 @@ import { LineBreakMode, TextAlignmentMode } from "../properties/Text";
 export interface LabelBacking extends ViewBacking {
     qk_text: string;
     qk_font: Font;
-    qk_color: Color;
+    qk_textColor: Color;
     qk_lineCount: number;
     qk_lineBreakMode: LineBreakMode;
     qk_alignmentMode: TextAlignmentMode;
@@ -23,8 +23,8 @@ export class Label extends View {
     public get font(): Font { return this.labelBacking.qk_font; }
     public set font(newValue: Font) { this.labelBacking.qk_font = newValue; }
 
-    public get color(): Color { return this.labelBacking.qk_color; }
-    public set color(newValue: Color) { this.labelBacking.qk_color = newValue; }
+    public get textColor(): Color { return this.labelBacking.qk_textColor; }
+    public set textColor(newValue: Color) { this.labelBacking.qk_textColor = newValue; }
 
     public get lineCount(): number { return this.labelBacking.qk_lineCount; }
     public set lineCount(newValue: number) { this.labelBacking.qk_lineCount = newValue; }

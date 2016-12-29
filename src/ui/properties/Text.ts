@@ -1,7 +1,7 @@
 export enum LineBreakMode {
-    WordWrap, CharWrap, Clip, TruncateHead, TruncateTail, TruncateMiddle
+    WordWrap, CharWrap
 }
 
 export enum TextAlignmentMode {
-    Left, Right, Center, Justified
+    Left, Right, Center, Justify
 }
