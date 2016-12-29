@@ -7,6 +7,8 @@ import { Point } from "../../types/Point";
 import { Color } from "../../types/Color";
 import { Shadow } from "../../types/Shadow";
 import { Module } from "../../core/Module";
+import { Appearance } from "../Appearance";
+import { Logger } from "../../core/Logger";
 
 // Interface for what `quark-native` needs to implement with prototypes
 export interface ViewBacking {
@@ -57,6 +59,34 @@ export class View implements EventResponder {
         this.alpha = 1.0;
         this.shadow = undefined;
         this.cornerRadius = 0;
+
+        // Set the initial appearance.
+        this._appearance = Appearance.emptyAppearance;
+    }
+
+    /* Appearance */
+    private _appearance: Appearance;
+    public get appearance(): Appearance { return this._appearance; }
+    public set appearance(appearance: Appearance) {
+        Logger.print("Set appearance", this);
+        // Make sure the appearance has actually changed
+        if (this._appearance === appearance) { return; }
+
+        // Set the appearance
+        this._appearance = appearance;
+
+        // Notify appearance change
+        this.appearanceChanged(appearance);
+
+        // Set on the subviews
+        for (let subview of this.subviews) {
+            subview.appearance = appearance;
+        }
+    }
+
+    public appearanceChanged(appearance: Appearance) {
+        Logger.print("Appearance changed");
+        // Override point for subviews
     }
 
     /* Positioning */
@@ -96,15 +126,26 @@ export class View implements EventResponder {
     public get superview(): View | undefined {
         return this.backing.qk_superview;
     }
+
     public get subviews(): View[] {
         return this.backing.qk_subviews;
     }
+
     public addSubviewAt(view: View, index: number) {
         let newIndex = Math.min(Math.max(Math.floor(index), 0), this.subviews.length);
         this.backing.qk_addSubview(view, newIndex);
     }
+
     public addSubview(view: View) { this.addSubviewAt(view, this.subviews.length); }
+
     public removeFromSuperview() { this.backing.qk_removeFromSuperview(); }
+
+    public movedToSuperview(superview: View | undefined) {
+        // Set the appearance to the parent's appearance
+        if (superview) {
+            this.appearance = superview.appearance;
+        }
+    }
 
     /* Events */
     public interactionEvent(event: InteractionEvent): boolean {

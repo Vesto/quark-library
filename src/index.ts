@@ -29,7 +29,7 @@ export * from "./types/Vector";
 
 // ui
 export * from "./ui/Sidebar";
-export * from "./ui/Theme";
+export * from "./ui/Appearance";
 export * from "./ui/ToolbarItem";
 export * from "./ui/Window";
 

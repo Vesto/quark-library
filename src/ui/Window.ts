@@ -1,7 +1,6 @@
 import { View } from "./views/View";
 import { Sidebar } from "./Sidebar";
 import { ToolbarItem } from "./ToolbarItem";
-import { Theme } from "./Theme";
 import { Point } from "../types/Point";
 
 export interface WindowBacking {
@@ -12,8 +11,6 @@ export class Window {
     public readonly backing: WindowBacking;
 
     get rootView(): View { return this.backing.qk_rootView; }
-
-    public theme: Theme;
 
     public readonly toolbarItems: ToolbarItem[];
 
