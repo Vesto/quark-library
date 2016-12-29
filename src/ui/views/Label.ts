@@ -37,5 +37,16 @@ export class Label extends View {
 
     public constructor(backing?: LabelBacking) {
         super(backing ? backing : Label.createBacking());
+
+        // Set default values
+        this.text = "";
+        // TODO: Default font
+        this.textColor = new Color(0, 0, 0, 1);
+        this.lineCount = 0;
+        this.lineBreakMode = LineBreakMode.WordWrap;
+        this.alignmentMode = TextAlignmentMode.Left;
+
+        // Override view defaults
+        this.backgroundColor = new Color(0, 0, 0, 0);
     }
 }

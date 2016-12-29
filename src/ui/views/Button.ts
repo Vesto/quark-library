@@ -10,6 +10,8 @@ export enum ButtonStyle { Borderless, Bordered }
 
 export interface ButtonBacking extends ViewBacking {
     qk_title: string;
+    qk_isEnabled: boolean;
+    qk_isEmphasized: boolean;
 }
 
 export class Button extends View implements Control {
@@ -19,23 +21,27 @@ export class Button extends View implements Control {
     get title(): string { return this.buttonBacking.qk_title; } // TODO: Add back
     set title(newValue: string) { this.buttonBacking.qk_title = newValue; }
 
-    public image?: Image; // TODO: Implement
+    public get isEnabled(): boolean { return this.buttonBacking.qk_isEnabled; }
+    public set isEnabled(enabled: boolean) { this.buttonBacking.qk_isEnabled = enabled; }
 
-    public get style(): ButtonStyle { return ButtonStyle.Bordered; } // TODO: Implement
-    public set style(newValue: ButtonStyle) { /* Do nothing for now */ }
-
-    public isEnabled: boolean;
+    public get isEmphasized(): boolean { return this.buttonBacking.qk_isEmphasized; }
+    public set isEmphasized(emphasized: boolean) { this.buttonBacking.qk_isEmphasized = emphasized; }
 
     public buttonDownHandler?: ButtonHandler;
     public buttonUpHandler?: ButtonHandler;
 
     public constructor(backing?: ButtonBacking) {
         super(backing ? backing : Button.createBacking());
+
+        // Set default values
+        this.title = "";
+        this.isEnabled = true;
+        this.isEmphasized = false;
     }
 
     public interactionEvent(event: InteractionEvent): boolean {
         // Check if it should absorb the event and call the callbacks
-        if (event.type === InteractionType.LeftMouse) {
+        if (this.isEnabled && event.type === InteractionType.LeftMouse) {
             if (event.phase === EventPhase.Began && typeof this.buttonDownHandler !== "undefined") {
                 this.buttonDownHandler(this);
                 return true;

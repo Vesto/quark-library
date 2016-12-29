@@ -8,7 +8,6 @@ import { Color } from "../../types/Color";
 import { Shadow } from "../../types/Shadow";
 import { Module } from "../../core/Module";
 import { Appearance } from "../Appearance";
-import { Logger } from "../../core/Logger";
 
 // Interface for what `quark-native` needs to implement with prototypes
 export interface ViewBacking {

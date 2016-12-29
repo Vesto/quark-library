@@ -4,6 +4,7 @@ import { TextAlignmentMode } from "./properties/Text";
 import { Shadow } from "../types/Shadow";
 import { View } from "./views/View";
 import { Label } from "./views/Label";
+import { Logger } from "../core/Logger";
 
 export class AppearanceStyle {
     public constructor(
@@ -72,6 +73,23 @@ export class Appearance {
         appearance.languageTextAlignment = TextAlignmentMode.Left;
 
         return appearance;
+    }
+
+    public constructor() {
+        // Set empty appearance styles
+        let emptyStyle = new AppearanceStyle(new Font(), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), 0, undefined, 0, 0);
+
+        this.activeControl = emptyStyle;
+        this.normalControl = emptyStyle;
+        this.disabledControl = emptyStyle;
+
+        this.title = emptyStyle;
+        this.subtitle = emptyStyle;
+        this.text = emptyStyle;
+        this.subtext = emptyStyle;
+
+        this.backgroundColor = new Color(0, 0, 0, 0);
+        this.languageTextAlignment = TextAlignmentMode.Left;
     }
 
     // Controls
