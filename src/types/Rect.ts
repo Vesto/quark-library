@@ -1,7 +1,8 @@
 import { Point } from "./Point";
 import { Size } from "./Size";
+import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
 
-export class Rect {
+export class Rect implements Interpolatable {
     public point: Point;
     public size: Size;
 
@@ -18,7 +19,11 @@ export class Rect {
             this.point = new Point(pointOrX, sizeOrY);
             this.size = new Size(width, height);
         } else {
-            throw new Error(`Can not instantiateRect with given parameters. ${pointOrX}, ${sizeOrY}, ${width}, ${height}`);
+            throw new Error(
+                `Can not construct Rect with given parameters: ` +
+                `${pointOrX.constructor.name}, ${sizeOrY.constructor.name}, ${width ? width.constructor.name : undefined}, ${height ? height.constructor.name : undefined}` +
+                    `...${pointOrX instanceof Point} ${sizeOrY instanceof Size}`
+            );
         }
     }
 
@@ -44,5 +49,13 @@ export class Rect {
             this.width - this.x,
             this.height - this.y
         );
+    }
+
+    public interpolate(to: Interpolatable, time: number): Interpolatable {
+        if (to instanceof Rect) {
+            return new Rect(this.point.interpolate(to.point, time) as Point, this.size.interpolate(to.size, time) as Size);
+        } else {
+            throw new InvalidInterpolatableDestination(this, to);
+        }
     }
 }

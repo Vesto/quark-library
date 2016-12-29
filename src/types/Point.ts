@@ -1,4 +1,6 @@
-export class Point {
+import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
+
+export class Point implements Interpolatable {
     constructor(public x: number, public y: number) {
 
     }
@@ -26,6 +28,14 @@ export class Point {
             return new Point(this.x * pointOrMagnitude.x, this.y * pointOrMagnitude.y);
         } else {
             return new Point(this.x * pointOrMagnitude, this.y * pointOrMagnitude);
+        }
+    }
+
+    public interpolate(to: Interpolatable, time: number): Interpolatable {
+        if (to instanceof Point) {
+            return new Point(this.x.interpolate(to.x, time) as number, this.y.interpolate(to.y, time) as number);
+        } else {
+            throw new InvalidInterpolatableDestination(this, to);
         }
     }
 }

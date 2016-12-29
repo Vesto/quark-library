@@ -1,6 +1,14 @@
 // actions
 export * from "./actions/Action";
 
+// animation
+export * from "./animation/Animation";
+export * from "./animation/AnimationGrouping";
+export * from "./animation/GroupAnimation";
+export * from "./animation/PropertyAnimation";
+export * from "./animation/SequenceAnimation";
+export * from "./animation/WaitAnimation";
+
 // core
 export * from "./core/Device";
 export * from "./core/Logger";
@@ -56,3 +64,8 @@ export * from "./ui/views/WebView";
 // ui/views/containers
 export * from "./ui/views/containers/SplitContainer";
 export * from "./ui/views/containers/TabContainer";
+
+// utils
+export * from "./utils/AnimationLoop";
+export * from "./utils/Interpolatable";
+export * from "./utils/Timer";

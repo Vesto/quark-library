@@ -7,6 +7,7 @@ import { Point } from "../../types/Point";
 import { Color } from "../../types/Color";
 import { Shadow } from "../../types/Shadow";
 import { Module } from "../../core/Module";
+import { RootView } from "./RootView";
 
 // Interface for what `quark-native` needs to implement with prototypes
 export interface ViewBacking {
@@ -48,9 +49,15 @@ export class View implements EventResponder {
         this.backing.qk_view = this;
         this.backing.qk_init();
 
-        // Set the default values on the view if it's new
-        // TODO: Set the default values for the new view
-        // We are assuming that all views that are used by Quark have to be initialized by Quark
+        // Set the default values on the view if it's new; it is assumed that all views that are used by Quark have
+        // to be initialized by Quark.
+        this.rect = Rect.zero;
+        this.isHidden = false;
+        this.clipSubviews = true;
+        this.backgroundColor = new Color(1, 1, 1, 1);
+        this.alpha = 1.0;
+        this.shadow = undefined;
+        this.cornerRadius = 0;
     }
 
     /* Positioning */
@@ -133,7 +140,7 @@ export class View implements EventResponder {
     public get backgroundColor(): Color { return this.backing.qk_backgroundColor; }
     public set backgroundColor(color: Color) { this.backing.qk_backgroundColor = color; }
 
-    public get opacity(): number { return this.backing.qk_alpha; }
+    public get alpha(): number { return this.backing.qk_alpha; }
     public set alpha(value: number) { this.backing.qk_alpha = value; }
 
     public get shadow(): Shadow | undefined { return this.backing.qk_shadow; }
