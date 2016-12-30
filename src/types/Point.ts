@@ -9,6 +9,10 @@ export class Point implements Interpolatable {
         return new Point(0, 0);
     }
 
+    public equals(point: Point): boolean {
+        return this.x === point.x && this.y === point.y;
+    }
+
     public inverse(): Point {
         return new Point(-this.x, -this.y);
     }

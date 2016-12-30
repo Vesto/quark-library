@@ -21,8 +21,8 @@ export class Rect implements Interpolatable {
         } else {
             throw new Error(
                 `Can not construct Rect with given parameters: ` +
-                `${pointOrX.constructor.name}, ${sizeOrY.constructor.name}, ${width ? width.constructor.name : undefined}, ${height ? height.constructor.name : undefined}` +
-                    `...${pointOrX instanceof Point} ${sizeOrY instanceof Size}`
+                `${pointOrX.constructor.name}, ${sizeOrY.constructor.name},` +
+                `${width ? width.constructor.name : undefined}, ${height ? height.constructor.name : undefined}`
             );
         }
     }
@@ -46,8 +46,8 @@ export class Rect implements Interpolatable {
     public get bounds(): Rect {
         return new Rect(
             0, 0,
-            this.width - this.x,
-            this.height - this.y
+            this.width,
+            this.height
         );
     }
 
