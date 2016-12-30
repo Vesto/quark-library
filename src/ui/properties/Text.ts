@@ -7,5 +7,5 @@ export enum TextAlignmentMode {
 }
 
 export enum TextVerticalAlignmentMode {
-    Top, Bottom, Middle
+    Top, Bottom, Center
 }

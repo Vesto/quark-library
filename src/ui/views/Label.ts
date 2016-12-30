@@ -56,7 +56,7 @@ export class Label extends View {
         this.lineCount = 0;
         this.lineBreakMode = LineBreakMode.WordWrap;
         this.alignmentMode = TextAlignmentMode.Left;
-        this.verticalAlignmentMode = TextVerticalAlignmentMode.Middle;
+        this.verticalAlignmentMode = TextVerticalAlignmentMode.Center;
 
         // Override view defaults
         this.backgroundColor = new Color(0, 0, 0, 0);
