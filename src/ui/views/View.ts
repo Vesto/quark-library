@@ -50,6 +50,9 @@ export class View implements EventResponder {
         this.backing.qk_view = this;
         this.backing.qk_init();
 
+        // Set the initial appearance.
+        this._appearance = Appearance.emptyAppearance;
+
         // Set the default values on the view if it's new; it is assumed that all views that are used by Quark have
         // to be initialized by Quark.
         this.rect = Rect.zero;
@@ -59,9 +62,6 @@ export class View implements EventResponder {
         this.alpha = 1.0;
         this.shadow = undefined;
         this.cornerRadius = 0;
-
-        // Set the initial appearance.
-        this._appearance = Appearance.emptyAppearance;
     }
 
     /* Appearance */

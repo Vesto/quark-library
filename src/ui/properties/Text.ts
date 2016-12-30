@@ -5,3 +5,7 @@ export enum LineBreakMode {
 export enum TextAlignmentMode {
     Left, Right, Center, Justify
 }
+
+export enum TextVerticalAlignmentMode {
+    Top, Bottom, Middle
+}

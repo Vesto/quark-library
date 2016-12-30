@@ -40,13 +40,13 @@ export class AppearanceStyle {
 }
 
 export class Appearance {
-    public static emptyAppearance: Appearance = new Appearance();
-    public static defaultAppearance: Appearance = Appearance.darkDefaultAppearance;
+    public static get emptyAppearance(): Appearance { return new Appearance(); }
 
-    public static get darkDefaultAppearance(): Appearance {
+    public static get defaultAppearance(): Appearance {
         let appearance = new Appearance();
 
-        let font = new Font();
+        let font = new Font(17, { family: "Source Sans Pro", weight: 400 });
+        if (!font) { throw new Error("Could not load font."); }
         let white = new Color(1, 1, 1, 1);
         let whiteTransparent = new Color(1, 1, 1, 0.5);
         // let black = new Color(0, 0, 0, 1);
@@ -77,7 +77,9 @@ export class Appearance {
 
     public constructor() {
         // Set empty appearance styles
-        let emptyStyle = new AppearanceStyle(new Font(), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), 0, undefined, 0, 0);
+        let font = new Font(17, { family: "Source Sans Pro", weight: 400 });
+        if (!font) { throw new Error("Could not load font."); }
+        let emptyStyle = new AppearanceStyle(font, new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), 0, undefined, 0, 0);
 
         this.activeControl = emptyStyle;
         this.normalControl = emptyStyle;
