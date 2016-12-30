@@ -16,20 +16,20 @@ export interface ViewBacking {
     qk_init(): void;
     qk_appearanceChanged(appearance: Appearance): void;
 
-    qk_rect: Rect;
+    qk_setRect(rect: Rect): void;
 
-    qk_subviews: View[];
-    qk_superview: View | undefined;
+    readonly qk_subviews: View[];
+    readonly qk_superview: View | undefined;
     qk_addSubview(view: View, index: number): void;
     qk_removeFromSuperview(): void;
 
-    qk_isHidden: boolean;
-    qk_clipSubviews: boolean;
+    qk_setIsHidden(hidden: boolean): void;
+    qk_setClipSubviews(clip: boolean): void;
 
-    qk_backgroundColor: Color;
-    qk_alpha: number;
-    qk_shadow: Shadow | undefined;
-    qk_cornerRadius: number;
+    qk_setBackgroundColor(color: Color): void;
+    qk_setAlpha(alpha: number): void;
+    qk_setShadow(shadow: Shadow | undefined): void;
+    qk_setCornerRadius(radius: number): void;
 }
 
 export class View implements EventResponder {
@@ -65,7 +65,7 @@ export class View implements EventResponder {
     }
 
     /* Appearance */
-    private _appearance: Appearance;
+    protected _appearance: Appearance;
     public get appearance(): Appearance { return this._appearance; }
     public set appearance(appearance: Appearance) {
         // Make sure the appearance has actually changed
@@ -86,13 +86,12 @@ export class View implements EventResponder {
     public appearanceChanged(appearance: Appearance) {
         // Notify the backing
         this.backing.qk_appearanceChanged(appearance);
-
-        // Override point for subviews
     }
 
     /* Positioning */
-    public get rect(): Rect { return this.backing.qk_rect; }
-    public set rect(rect: Rect) { this.backing.qk_rect = rect; }
+    protected _rect: Rect = Rect.zero;
+    public get rect(): Rect { return this._rect; }
+    public set rect(rect: Rect) { this._rect = rect; this.backing.qk_setRect(rect); }
 
     public get center(): Point { return this.rect.center; }
     public set center(value: Point) {
@@ -124,12 +123,12 @@ export class View implements EventResponder {
     }
 
     /* View hierarchy */
-    public get superview(): View | undefined {
-        return this.backing.qk_superview;
-    }
-
     public get subviews(): View[] {
         return this.backing.qk_subviews;
+    }
+
+    public get superview(): View | undefined {
+        return this.backing.qk_superview;
     }
 
     public addSubviewAt(view: View, index: number) {
@@ -171,22 +170,28 @@ export class View implements EventResponder {
     }
 
     /* Visibility */
-    public get isHidden(): boolean { return this.backing.qk_isHidden; }
-    public set isHidden(value: boolean) { this.backing.qk_isHidden = value; }
+    protected _isHidden: boolean;
+    public get isHidden(): boolean { return this.isHidden; }
+    public set isHidden(hidden: boolean) { this._isHidden = hidden; this.backing.qk_setIsHidden(hidden); }
 
-    public get clipSubviews(): boolean { return this.backing.qk_clipSubviews; }
-    public set clipSubviews(value: boolean) { this.backing.qk_clipSubviews = value; }
+    protected _clipSubviews: boolean;
+    public get clipSubviews(): boolean { return this._clipSubviews; }
+    public set clipSubviews(clip: boolean) { this._clipSubviews = clip; this.backing.qk_setClipSubviews(clip); }
 
     /* Style */
-    public get backgroundColor(): Color { return this.backing.qk_backgroundColor; }
-    public set backgroundColor(color: Color) { this.backing.qk_backgroundColor = color; }
+    protected _backgroundColor: Color;
+    public get backgroundColor(): Color { return this._backgroundColor; }
+    public set backgroundColor(color: Color) { this._backgroundColor = color; this.backing.qk_setBackgroundColor(color); }
 
-    public get alpha(): number { return this.backing.qk_alpha; }
-    public set alpha(value: number) { this.backing.qk_alpha = value; }
+    protected _alpha: number;
+    public get alpha(): number { return this._alpha; }
+    public set alpha(value: number) { this._alpha = value; this.backing.qk_setAlpha(value); }
 
-    public get shadow(): Shadow | undefined { return this.backing.qk_shadow; }
-    public set shadow(shadow: Shadow | undefined) { this.backing.qk_shadow = shadow; }
+    protected _shadow?: Shadow;
+    public get shadow(): Shadow | undefined { return this._shadow; }
+    public set shadow(shadow: Shadow | undefined) { this._shadow = shadow; this.backing.qk_setShadow(shadow); }
 
-    public get cornerRadius(): number { return this.backing.qk_cornerRadius; }
-    public set cornerRadius(value: number) { this.backing.qk_cornerRadius = value; }
+    protected _cornerRadius: number;
+    public get cornerRadius(): number { return this._cornerRadius; }
+    public set cornerRadius(radius: number) { this._cornerRadius = radius; this.backing.qk_setCornerRadius(radius); }
 }

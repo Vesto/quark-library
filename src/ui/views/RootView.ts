@@ -10,8 +10,8 @@ export class RootView extends View {
     }
 
     // Don't allow manipulation of the rect and just return the size rect
-    public get rect(): Rect { return this.backing.qk_rect.bounds; }
-    public set rect(rect: Rect) { /* Do nothing */ }
+    public get rect(): Rect { return this._rect; }
+    public set rect(rect: Rect) { this._rect = rect.bounds; }
 
     public get superview(): View | undefined {
         return undefined;
