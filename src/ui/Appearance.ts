@@ -72,6 +72,8 @@ export class Appearance {
         appearance.backgroundColor = backgroundColor;
         appearance.languageTextAlignment = TextAlignmentMode.Left;
 
+        appearance.controlSize = 44;
+
         return appearance;
     }
 
@@ -90,6 +92,8 @@ export class Appearance {
         this.text = emptyStyle;
         this.subtext = emptyStyle;
 
+        this.controlSize = 0;
+
         this.backgroundColor = new Color(0, 0, 0, 0);
         this.languageTextAlignment = TextAlignmentMode.Left;
     }
@@ -104,6 +108,9 @@ export class Appearance {
     public subtitle: AppearanceStyle;
     public text: AppearanceStyle;
     public subtext: AppearanceStyle;
+
+    // Layout
+    public controlSize: number;
 
     // Misc
     public backgroundColor: Color;
