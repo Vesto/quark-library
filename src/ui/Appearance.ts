@@ -4,17 +4,16 @@ import { TextAlignmentMode } from "./properties/Text";
 import { Shadow } from "../types/Shadow";
 import { View } from "./views/View";
 import { Label } from "./views/Label";
-import { Logger } from "../core/Logger";
 
 export class AppearanceStyle {
     public constructor(
-        public font: Font,
-        public foregroundColor: Color,
-        public backgroundColor: Color,
-        public cornerRadius: number,
-        public shadow: Shadow | undefined,
-        public padding: number,
-        public margin: number
+        public readonly font: Font,
+        public readonly foregroundColor: Color,
+        public readonly backgroundColor: Color,
+        public readonly cornerRadius: number,
+        public readonly shadow: Shadow | undefined,
+        public readonly padding: number,
+        public readonly margin: number
     ) {
 
     }

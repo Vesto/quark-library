@@ -1,6 +1,7 @@
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
+import { Cloneable } from "../utils/Cloneable";
 
-export class Color implements Interpolatable {
+export class Color implements Interpolatable, Cloneable {
     public constructor(public red: number, public green: number, public blue: number, public alpha: number) {
 
     }
@@ -65,5 +66,9 @@ export class Color implements Interpolatable {
         } else {
             throw new InvalidInterpolatableDestination(this, to);
         }
+    }
+
+    public clone(): Cloneable {
+        return new Color(this.red, this.green, this.blue, this.alpha);
     }
 }

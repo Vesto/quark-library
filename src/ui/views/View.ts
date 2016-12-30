@@ -181,7 +181,9 @@ export class View implements EventResponder {
     /* Style */
     protected _backgroundColor: Color;
     public get backgroundColor(): Color { return this._backgroundColor; }
-    public set backgroundColor(color: Color) { this._backgroundColor = color; this.backing.qk_setBackgroundColor(color); }
+    public set backgroundColor(color: Color) { this.proxyProperty("_backgroundColor", color); }
+    // noinspection TsLint
+    private _backgroundColorUpdate() { this.backing.qk_setBackgroundColor(this._backgroundColor); }
 
     protected _alpha: number;
     public get alpha(): number { return this._alpha; }
@@ -189,9 +191,63 @@ export class View implements EventResponder {
 
     protected _shadow?: Shadow;
     public get shadow(): Shadow | undefined { return this._shadow; }
-    public set shadow(shadow: Shadow | undefined) { this._shadow = shadow; this.backing.qk_setShadow(shadow); }
+    public set shadow(shadow: Shadow | undefined) { this.proxyProperty("_shadow", shadow); }
+    // noinspection TsLint
+    private _shadowUpdate() { this.backing.qk_setShadow(this._shadow);  }
 
     protected _cornerRadius: number;
     public get cornerRadius(): number { return this._cornerRadius; }
     public set cornerRadius(radius: number) { this._cornerRadius = radius; this.backing.qk_setCornerRadius(radius); }
+
+    /* Proxy Utils */
+    // List of revoke function for the properties
+    protected propertyRevocables: { [property: string]: () => void } = { };
+
+    // This creates a revocable proxy from a value and calls a callback when a property changes.
+    private createProxy<T>(newValue: T, callback: () => void): { proxy: T; revoke: () => void; } {
+        return Proxy.revocable(
+            newValue,
+            {
+                set: (target, property, value) => {
+                    (target as any)[property] = value;
+                    callback();
+                    return true;
+                },
+            }
+        );
+    }
+
+    // TODO: Mark custom properties on the object that need to be proxied too, e.g. Rect and Shadow
+
+    // Proxy a property. To use, this, have a property called "<property-name>" then have another function called
+    // "<property-name>Update". The update function will automatically be caleld when the property changes and when
+    // this method is called if `autoCall` is true. This is only for use with objects – not primitives – because it
+    // notifies when each property is modified.
+    protected proxyProperty<T>(property: string, newValue: T, autoCall: boolean = true) {
+        // Revoke the property if it exists already
+        if (this.propertyRevocables[property]) { this.propertyRevocables[property](); }
+
+        // Check if new value is undefined
+        if (typeof newValue === "undefined") {
+            // Remove the proxy
+            delete this.propertyRevocables[property];
+
+            // Set the value as undefined
+            (this as any)[property] = undefined;
+        } else {
+            // Create the proxy
+            let {proxy, revoke} = this.createProxy(newValue, () => { (this as any)[property + "Update"](); });
+
+            // Set the proxy to the property
+            (this as any)[property] = proxy;
+
+            // Save the revocable
+            this.propertyRevocables[property] = revoke;
+        }
+
+        // Automatically call the update function
+        if (autoCall) {
+            (this as any)[property + "Update"]();
+        }
+    }
 }

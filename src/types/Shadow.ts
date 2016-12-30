@@ -1,8 +1,9 @@
 import { Color } from "./Color";
 import { Point } from "./Point";
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
+import { Cloneable } from "../utils/Cloneable";
 
-export class Shadow implements Interpolatable {
+export class Shadow implements Interpolatable, Cloneable {
     constructor(public offset: Point, public blurRadius: number, public color: Color) {
 
     }
@@ -17,5 +18,9 @@ export class Shadow implements Interpolatable {
         } else {
             throw new InvalidInterpolatableDestination(this, to);
         }
+    }
+
+    public clone(): Cloneable {
+        return new Shadow(this.offset.clone() as Point, this.blurRadius, this.color.clone() as Color);
     }
 }

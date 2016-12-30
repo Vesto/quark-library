@@ -2,9 +2,9 @@ import { AnimationGrouping } from "./AnimationGrouping";
 import { Animation } from "./Animation";
 import { Interpolatable } from "../utils/Interpolatable";
 import { AnimationLoop } from "../utils/AnimationLoop";
-import { Logger } from "../core/Logger";
+import { Cloneable } from "../utils/Cloneable";
 
-export class PropertyAnimation<T extends Interpolatable> implements Animation {
+export class PropertyAnimation<T extends Interpolatable & Cloneable> implements Animation {
     public target: any;
     public property: string;
 
@@ -34,6 +34,12 @@ export class PropertyAnimation<T extends Interpolatable> implements Animation {
 
         // Set the starting value if doesn't exist already
         if (!this.from) { this.from = targetProperty; }
+
+        // Clone the from value so it can't be manipulated
+        this.from = this.from.clone() as T;
+
+        // Clone the to value so it can't be manipulated
+        this.to = this.to.clone() as T;
 
         // Hook into the animation loop
         this.animationHook = dt => this.update(dt);

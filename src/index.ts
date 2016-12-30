@@ -67,5 +67,6 @@ export * from "./ui/views/containers/TabContainer";
 
 // utils
 export * from "./utils/AnimationLoop";
+export * from "./utils/Cloneable";
 export * from "./utils/Interpolatable";
 export * from "./utils/Timer";

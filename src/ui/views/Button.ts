@@ -9,23 +9,26 @@ export interface ButtonHandler { (button: Button): void; }
 export enum ButtonStyle { Borderless, Bordered }
 
 export interface ButtonBacking extends ViewBacking {
-    qk_title: string;
-    qk_isEnabled: boolean;
-    qk_isEmphasized: boolean;
+    qk_setTitle(title: string): void;
+    qk_setIsEnabled(enabled: boolean): void;
+    qk_setIsEmphasized(emphasized: boolean): void;
 }
 
 export class Button extends View implements Control {
     public static createBacking: () => ButtonBacking;
     public get buttonBacking(): ButtonBacking { return this.backing as ButtonBacking; }
 
-    get title(): string { return this.buttonBacking.qk_title; } // TODO: Add back
-    set title(newValue: string) { this.buttonBacking.qk_title = newValue; }
+    private _title: string;
+    get title(): string { return this._title; }
+    set title(title: string) { this._title = title; this.buttonBacking.qk_setTitle(title); }
 
-    public get isEnabled(): boolean { return this.buttonBacking.qk_isEnabled; }
-    public set isEnabled(enabled: boolean) { this.buttonBacking.qk_isEnabled = enabled; }
+    private _isEnabled: boolean;
+    public get isEnabled(): boolean { return this._isEnabled; }
+    public set isEnabled(enabled: boolean) { this._isEnabled = enabled; this.buttonBacking.qk_setIsEnabled(enabled); }
 
-    public get isEmphasized(): boolean { return this.buttonBacking.qk_isEmphasized; }
-    public set isEmphasized(emphasized: boolean) { this.buttonBacking.qk_isEmphasized = emphasized; }
+    private _isEmphasized: boolean;
+    public get isEmphasized(): boolean { return this._isEmphasized; }
+    public set isEmphasized(emphasized: boolean) { this._isEmphasized = emphasized; this.buttonBacking.qk_setIsEmphasized(emphasized); }
 
     public buttonDownHandler?: ButtonHandler;
     public buttonUpHandler?: ButtonHandler;

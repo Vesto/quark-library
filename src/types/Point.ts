@@ -1,6 +1,7 @@
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
+import { Cloneable } from "../utils/Cloneable";
 
-export class Point implements Interpolatable {
+export class Point implements Interpolatable, Cloneable {
     constructor(public x: number, public y: number) {
 
     }
@@ -41,5 +42,9 @@ export class Point implements Interpolatable {
         } else {
             throw new InvalidInterpolatableDestination(this, to);
         }
+    }
+
+    public clone(): Cloneable {
+        return new Point(this.x, this.y);
     }
 }

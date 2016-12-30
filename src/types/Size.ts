@@ -16,4 +16,8 @@ export class Size implements Interpolatable {
             throw new InvalidInterpolatableDestination(this, to);
         }
     }
+
+    public clone() {
+        return new Size(this.width, this.height);
+    }
 }

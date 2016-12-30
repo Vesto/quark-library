@@ -6,13 +6,13 @@ import { LineBreakMode, TextAlignmentMode, TextVerticalAlignmentMode } from "../
 import { Appearance } from "../Appearance";
 
 export interface LabelBacking extends ViewBacking {
-    qk_text: string;
-    qk_font: Font;
-    qk_textColor: Color;
-    qk_lineCount: number;
-    qk_lineBreakMode: LineBreakMode;
-    qk_alignmentMode: TextAlignmentMode;
-    qk_verticalAlignmentMode: TextVerticalAlignmentMode;
+    qk_setText(text: string): void;
+    qk_setFont(font: Font): void;
+    qk_setTextColor(color: Color): void;
+    qk_setLineCount(count: number): void;
+    qk_setLineBreakMode(mode: LineBreakMode): void;
+    qk_setAlignmentMode(mode: TextAlignmentMode): void;
+    qk_setVerticalAlignmentMode(mode: TextVerticalAlignmentMode): void;
 }
 
 export enum LabelStyle {
@@ -23,28 +23,41 @@ export class Label extends View {
     public static createBacking: () => LabelBacking;
     public get labelBacking(): LabelBacking { return this.backing as LabelBacking; }
 
-    public get text(): string { return this.labelBacking.qk_text; } // TODO: Add back
-    public set text(newValue: string) { this.labelBacking.qk_text = newValue; }
+    private _text: string;
+    public get text(): string { return this._text; }
+    public set text(text: string) { this.labelBacking.qk_setText(text); }
 
-    public get font(): Font { return this.labelBacking.qk_font; }
-    public set font(newValue: Font) { this.labelBacking.qk_font = newValue; }
+    private _font: Font;
+    public get font(): Font { return this._font; }
+    public set font(font: Font) { this.proxyProperty("_font", font); }
+    // noinspection TsLint
+    private _fontUpdate() { this.labelBacking.qk_setFont(this._font); }
 
-    public get textColor(): Color { return this.labelBacking.qk_textColor; }
-    public set textColor(newValue: Color) { this.labelBacking.qk_textColor = newValue; }
+    private _textColor: Color;
+    public get textColor(): Color { return this._textColor; }
+    public set textColor(color: Color) { this.proxyProperty("_textColor", color); }
+    // noinspection TsLint
+    private _textColorUpdate() { this.labelBacking.qk_setTextColor(this._textColor); }
 
-    public get lineCount(): number { return this.labelBacking.qk_lineCount; }
-    public set lineCount(newValue: number) { this.labelBacking.qk_lineCount = newValue; }
+    private _lineCount: number;
+    public get lineCount(): number { return this._lineCount; }
+    public set lineCount(count: number) { this._lineCount = count; this.labelBacking.qk_setLineCount(count); }
 
-    public get lineBreakMode(): LineBreakMode { return this.labelBacking.qk_lineBreakMode; }
-    public set lineBreakMode(newValue: LineBreakMode) { this.labelBacking.qk_lineBreakMode = newValue; }
+    private _lineBreakMode: LineBreakMode;
+    public get lineBreakMode(): LineBreakMode { return this._lineBreakMode; }
+    public set lineBreakMode(mode: LineBreakMode) { this._lineBreakMode = mode; this.labelBacking.qk_setLineBreakMode(mode); }
 
-    public get alignmentMode(): TextAlignmentMode { return this.labelBacking.qk_alignmentMode; }
-    public set alignmentMode(newValue: TextAlignmentMode) { this.labelBacking.qk_alignmentMode = newValue; }
+    private _alignmentMode: TextAlignmentMode;
+    public get alignmentMode(): TextAlignmentMode { return this._alignmentMode; }
+    public set alignmentMode(mode: TextAlignmentMode) { this._alignmentMode = mode; this.labelBacking.qk_setAlignmentMode(mode); }
 
-    public get verticalAlignmentMode(): TextVerticalAlignmentMode { return this.labelBacking.qk_verticalAlignmentMode; }
-    public set verticalAlignmentMode(newValue: TextVerticalAlignmentMode) { this.labelBacking.qk_verticalAlignmentMode = newValue; }
+    private _verticalAlignmentMode: TextVerticalAlignmentMode;
+    public get verticalAlignmentMode(): TextVerticalAlignmentMode { return this._verticalAlignmentMode; }
+    public set verticalAlignmentMode(mode: TextVerticalAlignmentMode) { this._verticalAlignmentMode = mode; this.labelBacking.qk_setVerticalAlignmentMode(mode); }
 
-    public style: LabelStyle = LabelStyle.None;
+    private _style: LabelStyle = LabelStyle.None;
+    public get style(): LabelStyle { return this._style; }
+    public set style(style: LabelStyle) { this._style = style; this.updateAppearance(); }
 
     public constructor(backing?: LabelBacking) {
         super(backing ? backing : Label.createBacking());
@@ -65,19 +78,24 @@ export class Label extends View {
     public appearanceChanged(appearance: Appearance): void {
         super.appearanceChanged(appearance);
 
-        // Get the style
+        // Update the appearance
+        this.updateAppearance();
+    }
+
+    private updateAppearance() {
+        // Style the view
         switch (this.style) {
             case LabelStyle.Title:
-                appearance.title.styleView(this);
+                this.appearance.title.styleView(this);
                 break;
             case LabelStyle.Subtitle:
-                appearance.subtitle.styleView(this);
+                this.appearance.subtitle.styleView(this);
                 break;
             case LabelStyle.Text:
-                appearance.text.styleView(this);
+                this.appearance.text.styleView(this);
                 break;
             case LabelStyle.Subtext:
-                appearance.subtext.styleView(this);
+                this.appearance.subtext.styleView(this);
                 break;
             default:
                 // Don't style .None
