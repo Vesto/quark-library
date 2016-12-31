@@ -27,6 +27,7 @@ export interface ViewBacking {
     qk_setClipSubviews(clip: boolean): void;
 
     qk_setBackgroundColor(color: Color): void;
+    qk_setBackgroundBlur(blur: number): void;
     qk_setAlpha(alpha: number): void;
     qk_setShadow(shadow: Shadow | undefined): void;
     qk_setCornerRadius(radius: number): void;
@@ -59,6 +60,7 @@ export class View implements EventResponder {
         this.isHidden = false;
         this.clipSubviews = true;
         this.backgroundColor = new Color(1, 1, 1, 1);
+        this.backgroundBlur = 0;
         this.alpha = 1.0;
         this.shadow = undefined;
         this.cornerRadius = 0;
@@ -183,6 +185,10 @@ export class View implements EventResponder {
     public get backgroundColor(): Color { return this._backgroundColor; }
     public set backgroundColor(color: Color) { this.proxyProperty("_backgroundColor", color); }
     private _backgroundColorUpdate() { this.backing.qk_setBackgroundColor(this._backgroundColor); }
+
+    protected _backgroundBlur: number;
+    public get backgroundBlur(): number { return this.backgroundBlur; }
+    public set backgroundBlur(blur: number) { this.backing.qk_setBackgroundBlur(blur); }
 
     protected _alpha: number;
     public get alpha(): number { return this._alpha; }
