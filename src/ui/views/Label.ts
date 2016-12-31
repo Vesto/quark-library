@@ -30,13 +30,11 @@ export class Label extends View {
     private _font: Font;
     public get font(): Font { return this._font; }
     public set font(font: Font) { this.proxyProperty("_font", font); }
-    // noinspection TsLint
     private _fontUpdate() { this.labelBacking.qk_setFont(this._font); }
 
     private _textColor: Color;
     public get textColor(): Color { return this._textColor; }
     public set textColor(color: Color) { this.proxyProperty("_textColor", color); }
-    // noinspection TsLint
     private _textColorUpdate() { this.labelBacking.qk_setTextColor(this._textColor); }
 
     private _lineCount: number;

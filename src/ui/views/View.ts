@@ -182,7 +182,6 @@ export class View implements EventResponder {
     protected _backgroundColor: Color;
     public get backgroundColor(): Color { return this._backgroundColor; }
     public set backgroundColor(color: Color) { this.proxyProperty("_backgroundColor", color); }
-    // noinspection TsLint
     private _backgroundColorUpdate() { this.backing.qk_setBackgroundColor(this._backgroundColor); }
 
     protected _alpha: number;
@@ -192,7 +191,6 @@ export class View implements EventResponder {
     protected _shadow?: Shadow;
     public get shadow(): Shadow | undefined { return this._shadow; }
     public set shadow(shadow: Shadow | undefined) { this.proxyProperty("_shadow", shadow); }
-    // noinspection TsLint
     private _shadowUpdate() { this.backing.qk_setShadow(this._shadow);  }
 
     protected _cornerRadius: number;
