@@ -1,15 +1,13 @@
 import { View, ViewBacking } from "./View";
 import { Image } from "../../types/Image";
+import { Point } from "../../types/Point";
+import { Size } from "../../types/Size";
 
-export enum ImageScalingMode {
-    ScaleToFill, ScaleAspectFit, ScaleAspectFill,
-    Center, Left, Right, Top, Bottom,
-    TopLeft, TopRight, BottomLeft, BottomRight
-}
-
+export type ImageScalingMode = "fill" | "aspect-fit" | "aspect-fill" | Size; // Size is percentage of parent in x and y
 export interface ImageViewBacking extends ViewBacking {
     qk_setImage(image: Image | undefined): void;
     qk_setScalingMode(mode: ImageScalingMode): void;
+    qk_setAlignment(alignment: Point): void;
 }
 
 export class ImageView extends View {
@@ -23,13 +21,20 @@ export class ImageView extends View {
 
     private _scalingMode: ImageScalingMode;
     public get scalingMode(): ImageScalingMode { return this._scalingMode; }
-    public set scalingMode(mode: ImageScalingMode) { this._scalingMode = mode; this.imageViewBacking.qk_setScalingMode(mode); }
+    public set scalingMode(mode: ImageScalingMode) { this.proxyProperty("_scalingMode", mode); }
+    private _scalingModeUpdate() { this.imageViewBacking.qk_setScalingMode(this._scalingMode); }
+
+    private _alignment: Point; // Percentage
+    public get alignment(): Point { return this._alignment; }
+    public set alignment(alignment: Point) { this.proxyProperty("_alignment", alignment); }
+    private _alignmentUpdate() { this.imageViewBacking.qk_setAlignment(this._alignment); }
 
     public constructor(backing?: ImageViewBacking) {
         super(backing ? backing : ImageView.createBacking());
 
         // Set default values
         this.image = undefined;
-        this.scalingMode = ImageScalingMode.ScaleToFill;
+        this.scalingMode = "fill";
+        this.alignment = new Point(0.5, 0.5);
     }
 }

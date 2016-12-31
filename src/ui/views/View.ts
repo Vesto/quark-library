@@ -226,13 +226,7 @@ export class View implements EventResponder {
         if (this.propertyRevocables[property]) { this.propertyRevocables[property](); }
 
         // Check if new value is undefined
-        if (typeof newValue === "undefined") {
-            // Remove the proxy
-            delete this.propertyRevocables[property];
-
-            // Set the value as undefined
-            (this as any)[property] = undefined;
-        } else {
+        if (typeof newValue === "object") {
             // Create the proxy
             let {proxy, revoke} = this.createProxy(newValue, () => { (this as any)[property + "Update"](); });
 
@@ -241,6 +235,13 @@ export class View implements EventResponder {
 
             // Save the revocable
             this.propertyRevocables[property] = revoke;
+        } else {
+            // The new value is undefined or a primitive
+            // Remove the proxy
+            delete this.propertyRevocables[property];
+
+            // Set the value as undefined
+            (this as any)[property] = newValue;
         }
 
         // Automatically call the update function
