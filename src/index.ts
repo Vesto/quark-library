@@ -53,7 +53,7 @@ export * from "./ui/views/ListView";
 export * from "./ui/views/ProgressBar";
 export * from "./ui/views/RootView";
 export * from "./ui/views/ScrollView";
-export * from "./ui/views/SegmentedController";
+export * from "./ui/views/SegmentedControl";
 export * from "./ui/views/Slider";
 export * from "./ui/views/Textbox";
 export * from "./ui/views/Toggle";

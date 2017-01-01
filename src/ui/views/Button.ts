@@ -1,5 +1,5 @@
 import { View, ViewBacking } from "./View";
-import { Control } from "./Control";
+import { Control, ControlBacking } from "./Control";
 import { InteractionEvent, InteractionType } from "../events/InteractionEvent";
 import { EventPhase } from "../events/Event";
 import { Image } from "../../types/Image";
@@ -8,9 +8,8 @@ export interface ButtonHandler { (button: Button): void; }
 
 export enum ButtonStyle { Borderless, Bordered }
 
-export interface ButtonBacking extends ViewBacking {
+export interface ButtonBacking extends ViewBacking, ControlBacking {
     qk_setTitle(title: string): void;
-    qk_setIsEnabled(enabled: boolean): void;
     qk_setIsEmphasized(emphasized: boolean): void;
 }
 
@@ -30,8 +29,8 @@ export class Button extends View implements Control {
     public get isEmphasized(): boolean { return this._isEmphasized; }
     public set isEmphasized(emphasized: boolean) { this._isEmphasized = emphasized; this.buttonBacking.qk_setIsEmphasized(emphasized); }
 
-    public buttonDownHandler?: ButtonHandler;
-    public buttonUpHandler?: ButtonHandler;
+    public onButtonDown?: ButtonHandler;
+    public onButtonUp?: ButtonHandler;
 
     public constructor(backing?: ButtonBacking) {
         super(backing ? backing : Button.createBacking());
@@ -45,11 +44,11 @@ export class Button extends View implements Control {
     public interactionEvent(event: InteractionEvent): boolean {
         // Check if it should absorb the event and call the callbacks
         if (this.isEnabled && event.type === InteractionType.LeftMouse) {
-            if (event.phase === EventPhase.Began && typeof this.buttonDownHandler !== "undefined") {
-                this.buttonDownHandler(this);
+            if (event.phase === EventPhase.Began && typeof this.onButtonDown !== "undefined") {
+                this.onButtonDown(this);
                 return true;
-            } else if (event.phase === EventPhase.Ended && typeof this.buttonUpHandler !== "undefined") {
-                this.buttonUpHandler(this);
+            } else if (event.phase === EventPhase.Ended && typeof this.onButtonUp !== "undefined") {
+                this.onButtonUp(this);
                 return true;
             }
         }
