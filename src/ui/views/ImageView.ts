@@ -3,7 +3,7 @@ import { Image } from "../../types/Image";
 import { Point } from "../../types/Point";
 import { Size } from "../../types/Size";
 
-export type ImageScalingMode = "fill" | "aspect-fit" | "aspect-fill" | Size; // Size is percentage of parent in x and y
+export type ImageScalingMode = "none" | "fill" | "aspect-fit" | "aspect-fill" | Size; // Size is percentage of parent in x and y
 export interface ImageViewBacking extends ViewBacking {
     qk_setImage(image: Image | undefined): void;
     qk_setScalingMode(mode: ImageScalingMode): void;
