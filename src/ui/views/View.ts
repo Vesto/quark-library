@@ -93,7 +93,8 @@ export class View implements EventResponder {
     /* Positioning */
     protected _rect: Rect = Rect.zero;
     public get rect(): Rect { return this._rect; }
-    public set rect(rect: Rect) { this._rect = rect; this.backing.qk_setRect(rect); }
+    public set rect(rect: Rect) { this.proxyProperty("_rect", rect); }
+    private _rectUpdate() { this.backing.qk_setRect(this._rect); }
 
     public get center(): Point { return this.rect.center; }
     public set center(value: Point) {
