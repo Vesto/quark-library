@@ -2,22 +2,20 @@ import { View, ViewBacking } from "./View";
 import { Rect } from "../../types/Rect";
 import { Appearance } from "../Appearance";
 
+export interface RootViewBacking extends ViewBacking {
+
+}
+
 export class RootView extends View {
-    public constructor(backing: ViewBacking) {
+    public get segmentedControlBacking(): RootViewBacking { return this.backing as RootViewBacking; }
+
+    public constructor(backing: RootViewBacking) { // Don't allow a custom backing
         super(backing);
 
         this.appearance = Appearance.defaultAppearance;
     }
 
-    // Don't allow manipulation of the rect and just return the size rect
+    // When `rect` set, only set the local `rect` since it should only be called from `QKRootView`
     public get rect(): Rect { return this._rect; }
     public set rect(rect: Rect) { this._rect = rect.bounds; }
-
-    public get superview(): View | undefined {
-        return undefined;
-    }
-
-    public removeFromSuperview(): void {
-        // Do nothing since root
-    }
 }
