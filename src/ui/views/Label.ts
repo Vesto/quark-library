@@ -23,37 +23,37 @@ export class Label extends View {
     public static createBacking: () => LabelBacking;
     public get labelBacking(): LabelBacking { return this.backing as LabelBacking; }
 
-    private _text: string;
+    protected _text: string;
     public get text(): string { return this._text; }
-    public set text(text: string) { this.labelBacking.qk_setText(text); }
+    public set text(text: string) { this._text = text; this.labelBacking.qk_setText(text); }
 
-    private _font: Font;
+    protected _font: Font;
     public get font(): Font { return this._font; }
     public set font(font: Font) { this.proxyProperty("_font", font); }
     private _fontUpdate() { this.labelBacking.qk_setFont(this._font); }
 
-    private _textColor: Color;
+    protected _textColor: Color;
     public get textColor(): Color { return this._textColor; }
     public set textColor(color: Color) { this.proxyProperty("_textColor", color); }
     private _textColorUpdate() { this.labelBacking.qk_setTextColor(this._textColor); }
 
-    private _lineCount: number;
+    protected _lineCount: number;
     public get lineCount(): number { return this._lineCount; }
     public set lineCount(count: number) { this._lineCount = count; this.labelBacking.qk_setLineCount(count); }
 
-    private _lineBreakMode: LineBreakMode;
+    protected _lineBreakMode: LineBreakMode;
     public get lineBreakMode(): LineBreakMode { return this._lineBreakMode; }
     public set lineBreakMode(mode: LineBreakMode) { this._lineBreakMode = mode; this.labelBacking.qk_setLineBreakMode(mode); }
 
-    private _alignmentMode: TextAlignmentMode;
+    protected _alignmentMode: TextAlignmentMode;
     public get alignmentMode(): TextAlignmentMode { return this._alignmentMode; }
     public set alignmentMode(mode: TextAlignmentMode) { this._alignmentMode = mode; this.labelBacking.qk_setAlignmentMode(mode); }
 
-    private _verticalAlignmentMode: TextVerticalAlignmentMode;
+    protected _verticalAlignmentMode: TextVerticalAlignmentMode;
     public get verticalAlignmentMode(): TextVerticalAlignmentMode { return this._verticalAlignmentMode; }
     public set verticalAlignmentMode(mode: TextVerticalAlignmentMode) { this._verticalAlignmentMode = mode; this.labelBacking.qk_setVerticalAlignmentMode(mode); }
 
-    private _style: LabelStyle = LabelStyle.None;
+    protected _style: LabelStyle = LabelStyle.None;
     public get style(): LabelStyle { return this._style; }
     public set style(style: LabelStyle) { this._style = style; this.updateAppearance(); }
 

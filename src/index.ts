@@ -35,6 +35,7 @@ export * from "./ui/Window";
 
 // ui/events
 export * from "./ui/events/Event";
+export * from "./ui/events/FocusEvent";
 export * from "./ui/events/InteractionEvent";
 export * from "./ui/events/KeyEvent";
 export * from "./ui/events/ScrollEvent";
@@ -55,10 +56,9 @@ export * from "./ui/views/RootView";
 export * from "./ui/views/ScrollView";
 export * from "./ui/views/SegmentedControl";
 export * from "./ui/views/Slider";
-export * from "./ui/views/Textbox";
+export * from "./ui/views/TextField";
 export * from "./ui/views/Toggle";
 export * from "./ui/views/View";
-export * from "./ui/views/VisualEffectView";
 export * from "./ui/views/WebView";
 
 // ui/views/containers

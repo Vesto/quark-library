@@ -9,7 +9,7 @@ export class Size implements Interpolatable {
         return new Size(0, 0);
     }
 
-    public interpolate(to: Interpolatable, time: number): Interpolatable {
+    public interpolate(to: Interpolatable, time: number): Size {
         if (to instanceof Size) {
             return new Size(this.width.interpolate(to.width, time) as number, this.height.interpolate(to.height, time) as number);
         } else {
@@ -17,7 +17,7 @@ export class Size implements Interpolatable {
         }
     }
 
-    public clone() {
+    public clone(): Size {
         return new Size(this.width, this.height);
     }
 }

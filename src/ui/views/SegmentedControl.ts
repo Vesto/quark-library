@@ -72,11 +72,10 @@ export class SegmentedControl extends View implements Control {
         super(backing ? backing : SegmentedControl.createBacking());
 
         // Set default values
-        this.appendSegments(new SegmentItem(true, "A", 1), new SegmentItem(true, "B", 1));
-        this.selectedIndex = 0;
+        this.clearSegments();
     }
 
-    public addSegment(segment: SegmentItem) { // TODO: Segment index
+    public appendSegment(segment: SegmentItem) { // TODO: Segment index
         // Add the segment
         this._segments.push(segment);
 
@@ -90,7 +89,7 @@ export class SegmentedControl extends View implements Control {
     public appendSegments(...segments: SegmentItem[]) { // Add segments to the end
         // Add all the indexes
         for (let segment of segments) {
-            this.addSegment(segment);
+            this.appendSegment(segment);
         }
     }
 

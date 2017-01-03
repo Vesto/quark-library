@@ -36,7 +36,7 @@ export class Point implements Interpolatable, Cloneable {
         }
     }
 
-    public interpolate(to: Interpolatable, time: number): Interpolatable {
+    public interpolate(to: Interpolatable, time: number): Point {
         if (to instanceof Point) {
             return new Point(this.x.interpolate(to.x, time) as number, this.y.interpolate(to.y, time) as number);
         } else {
@@ -44,7 +44,7 @@ export class Point implements Interpolatable, Cloneable {
         }
     }
 
-    public clone(): Cloneable {
+    public clone(): Point {
         return new Point(this.x, this.y);
     }
 }

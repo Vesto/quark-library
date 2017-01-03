@@ -4,8 +4,9 @@ import { TextAlignmentMode } from "./properties/Text";
 import { Shadow } from "../types/Shadow";
 import { View } from "./views/View";
 import { Label } from "./views/Label";
+import { Cloneable } from "../utils/Cloneable";
 
-export class AppearanceStyle {
+export class AppearanceStyle implements Cloneable {
     public constructor(
         public readonly font: Font,
         public readonly foregroundColor: Color,
@@ -36,9 +37,21 @@ export class AppearanceStyle {
             foreground.backgroundColor = this.foregroundColor;
         }
     }
+
+    public clone(): AppearanceStyle {
+        return new AppearanceStyle(
+            this.font,
+            this.foregroundColor.clone(),
+            this.backgroundColor.clone(),
+            this.cornerRadius,
+            this.shadow ? this.shadow.clone() : undefined,
+            this.padding,
+            this.margin
+        );
+    }
 }
 
-export class Appearance {
+export class Appearance implements Cloneable {
     public static get emptyAppearance(): Appearance { return new Appearance(); }
 
     public static get defaultAppearance(): Appearance {
@@ -46,6 +59,7 @@ export class Appearance {
 
         let font = new Font(17, { family: "Source Sans Pro", weight: 400 });
         if (!font) { throw new Error("Could not load font."); }
+        let black = new Color(0, 0, 0, 1);
         let white = new Color(1, 1, 1, 1);
         let whiteTransparent = new Color(1, 1, 1, 0.5);
         // let black = new Color(0, 0, 0, 1);
@@ -53,7 +67,7 @@ export class Appearance {
         let accentColor = Color.fromHex("00C3E7");
         let primaryColor = Color.fromHex("FFFFFF");
         let secondaryColor = Color.fromHex("4B4A5A");
-        // let tertiaryColor = Color.fromHex("31313A");
+        let tertiaryColor = Color.fromHex("31313A");
         let backgroundColor = Color.fromHex("383842");
         let cornerRadius = 4;
         let shadow = undefined;
@@ -63,6 +77,10 @@ export class Appearance {
         appearance.normalControl = new AppearanceStyle(font, white, secondaryColor, cornerRadius, shadow, padding, padding);
         appearance.disabledControl = new AppearanceStyle(font, whiteTransparent, secondaryColor, cornerRadius, shadow, padding, padding);
 
+        appearance.alternateActiveControl = new AppearanceStyle(font, black, primaryColor, cornerRadius, shadow, padding, padding);
+        appearance.alternateNormalControl = new AppearanceStyle(font, white, tertiaryColor, cornerRadius, shadow, padding, padding);
+        appearance.alternateDisabledControl = new AppearanceStyle(font, whiteTransparent, tertiaryColor, cornerRadius, shadow, padding, padding);
+
         appearance.title = new AppearanceStyle(font, white, clear, 0, undefined, padding, padding);
         appearance.subtitle = new AppearanceStyle(font, white, clear, 0, undefined, padding, padding);
         appearance.text = new AppearanceStyle(font, white, clear, 0, undefined, padding, padding);
@@ -71,6 +89,7 @@ export class Appearance {
         appearance.backgroundColor = backgroundColor;
         appearance.languageTextAlignment = TextAlignmentMode.Left;
 
+        appearance.spacing = padding;
         appearance.controlSize = 44;
 
         return appearance;
@@ -86,11 +105,16 @@ export class Appearance {
         this.normalControl = emptyStyle;
         this.disabledControl = emptyStyle;
 
+        this.alternateActiveControl = emptyStyle;
+        this.alternateNormalControl = emptyStyle;
+        this.alternateDisabledControl = emptyStyle;
+
         this.title = emptyStyle;
         this.subtitle = emptyStyle;
         this.text = emptyStyle;
         this.subtext = emptyStyle;
 
+        this.spacing = 8;
         this.controlSize = 0;
 
         this.backgroundColor = new Color(0, 0, 0, 0);
@@ -102,6 +126,10 @@ export class Appearance {
     public normalControl: AppearanceStyle;
     public disabledControl: AppearanceStyle;
 
+    public alternateActiveControl: AppearanceStyle;
+    public alternateNormalControl: AppearanceStyle;
+    public alternateDisabledControl: AppearanceStyle;
+
     // Text
     public title: AppearanceStyle;
     public subtitle: AppearanceStyle;
@@ -109,9 +137,31 @@ export class Appearance {
     public subtext: AppearanceStyle;
 
     // Layout
+    public spacing: number;
     public controlSize: number;
 
     // Misc
     public backgroundColor: Color;
     public languageTextAlignment: TextAlignmentMode; // For left or right-aligned languages
+
+    public clone(): Appearance {
+        let appearance = new Appearance();
+
+        appearance.activeControl = this.activeControl.clone();
+        appearance.normalControl = this.normalControl.clone();
+        appearance.disabledControl = this.disabledControl.clone();
+
+        appearance.title = this.title.clone();
+        appearance.subtitle = this.subtitle.clone();
+        appearance.text = this.text.clone();
+        appearance.subtext = this.subtext.clone();
+
+        appearance.spacing = this.spacing;
+        appearance.controlSize = this.controlSize;
+
+        appearance.backgroundColor = this.backgroundColor.clone();
+        appearance.languageTextAlignment = this.languageTextAlignment;
+
+        return appearance;
+    }
 }

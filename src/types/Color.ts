@@ -55,7 +55,7 @@ export class Color implements Interpolatable, Cloneable {
         return (r << 24) | (g << 16) | (b << 8) | (a);
     }
 
-    public interpolate(to: Interpolatable, time: number): Interpolatable {
+    public interpolate(to: Interpolatable, time: number): Color {
         if (to instanceof Color) {
             return new Color(
                 this.red.interpolate(to.red, time) as number,
@@ -68,7 +68,7 @@ export class Color implements Interpolatable, Cloneable {
         }
     }
 
-    public clone(): Cloneable {
+    public clone(): Color {
         return new Color(this.red, this.green, this.blue, this.alpha);
     }
 }

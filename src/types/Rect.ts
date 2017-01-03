@@ -52,15 +52,15 @@ export class Rect implements Interpolatable, Cloneable {
         );
     }
 
-    public interpolate(to: Interpolatable, time: number): Interpolatable {
+    public interpolate(to: Interpolatable, time: number): Rect {
         if (to instanceof Rect) {
-            return new Rect(this.point.interpolate(to.point, time) as Point, this.size.interpolate(to.size, time) as Size);
+            return new Rect(this.point.interpolate(to.point, time), this.size.interpolate(to.size, time));
         } else {
             throw new InvalidInterpolatableDestination(this, to);
         }
     }
 
-    public clone(): Cloneable {
-        return new Rect(this.point.clone() as Point, this.size.clone() as Size);
+    public clone(): Rect {
+        return new Rect(this.point.clone(), this.size.clone());
     }
 }

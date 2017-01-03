@@ -1,3 +1,4 @@
+import { FocusEvent } from "../events/FocusEvent";
 import { InteractionEvent } from "../events/InteractionEvent";
 import { KeyEvent } from "../events/KeyEvent";
 import { ScrollEvent } from "../events/ScrollEvent";
@@ -22,6 +23,9 @@ export interface ViewBacking {
     readonly qk_superview: View | undefined;
     qk_addSubview(view: View, index: number): void;
     qk_removeFromSuperview(): void;
+
+    qk_setFocusable(focusable: boolean): void;
+    qk_setFocused(focused: boolean): void;
 
     qk_setIsHidden(hidden: boolean): void;
     qk_setClipSubviews(clip: boolean): void;
@@ -57,6 +61,8 @@ export class View implements EventResponder {
         // Set the default values on the view if it's new; it is assumed that all views that are used by Quark have
         // to be initialized by Quark.
         this.rect = Rect.zero;
+        this.isFocusable = false;
+        this.isFocused = false;
         this.isHidden = false;
         this.clipSubviews = true;
         this.backgroundColor = new Color(1, 1, 1, 1);
@@ -150,7 +156,37 @@ export class View implements EventResponder {
         }
     }
 
+    /* Focus */
+    private _isFocusable: boolean;
+    public get isFocusable(): boolean { return this._isFocusable; }
+    public set isFocusable(focusable: boolean) {
+        this._isFocusable = focusable;
+        this.backing.qk_setFocusable(focusable);
+
+        // Blur if not focusable
+        if (!focusable) {
+            this.isFocused = false;
+        }
+    }
+
+    private _isFocused: boolean;
+    public get isFocused(): boolean { return this._isFocused; }
+    public set isFocused(focused: boolean) {
+        if (this.isFocusable) {
+            this._isFocused = focused;
+            this.backing.qk_setFocused(focused);
+        }
+    }
+
     /* Events */
+    public focusEvent(event: FocusEvent): boolean {
+        // Save focused
+        this._isFocused = event.focused;
+
+        // Override point
+        return false;
+    }
+
     public interactionEvent(event: InteractionEvent): boolean {
         // Override point
         return false;
@@ -174,7 +210,7 @@ export class View implements EventResponder {
 
     /* Visibility */
     protected _isHidden: boolean;
-    public get isHidden(): boolean { return this.isHidden; }
+    public get isHidden(): boolean { return this._isHidden; }
     public set isHidden(hidden: boolean) { this._isHidden = hidden; this.backing.qk_setIsHidden(hidden); }
 
     protected _clipSubviews: boolean;
@@ -188,7 +224,7 @@ export class View implements EventResponder {
     private _backgroundColorUpdate() { this.backing.qk_setBackgroundColor(this._backgroundColor); }
 
     protected _backgroundBlur: number;
-    public get backgroundBlur(): number { return this.backgroundBlur; }
+    public get backgroundBlur(): number { return this._backgroundBlur; }
     public set backgroundBlur(blur: number) { this.backing.qk_setBackgroundBlur(blur); }
 
     protected _alpha: number;

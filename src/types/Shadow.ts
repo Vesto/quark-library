@@ -8,7 +8,7 @@ export class Shadow implements Interpolatable, Cloneable {
 
     }
 
-    public interpolate(to: Interpolatable, time: number): Interpolatable {
+    public interpolate(to: Interpolatable, time: number): Shadow {
         if (to instanceof Shadow) {
             return new Shadow(
                 this.offset.interpolate(to.offset, time) as Point,
@@ -20,7 +20,7 @@ export class Shadow implements Interpolatable, Cloneable {
         }
     }
 
-    public clone(): Cloneable {
-        return new Shadow(this.offset.clone() as Point, this.blurRadius, this.color.clone() as Color);
+    public clone(): Shadow {
+        return new Shadow(this.offset.clone(), this.blurRadius, this.color.clone());
     }
 }
