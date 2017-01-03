@@ -62,12 +62,13 @@ export class Label extends View {
 
         // Set default values
         this.text = "";
-        this.font = this.appearance.text.font;
+        this.font = this.appearance.textFont;
         this.textColor = new Color(0, 0, 0, 1);
         this.lineCount = 0;
         this.lineBreakMode = LineBreakMode.WordWrap;
         this.alignmentMode = TextAlignmentMode.Left;
         this.verticalAlignmentMode = TextVerticalAlignmentMode.Center;
+        this.style = LabelStyle.None;
 
         // Override view defaults
         this.backgroundColor = new Color(0, 0, 0, 0);
@@ -84,16 +85,16 @@ export class Label extends View {
         // Style the view
         switch (this.style) {
             case LabelStyle.Title:
-                this.appearance.title.styleView(this);
+                this.font = this.appearance.titleFont;
                 break;
             case LabelStyle.Subtitle:
-                this.appearance.subtitle.styleView(this);
+                this.font = this.appearance.subtitleFont;
                 break;
             case LabelStyle.Text:
-                this.appearance.text.styleView(this);
+                this.font = this.appearance.textFont;
                 break;
             case LabelStyle.Subtext:
-                this.appearance.subtext.styleView(this);
+                this.font = this.appearance.subtextFont;
                 break;
             default:
                 // Don't style .None

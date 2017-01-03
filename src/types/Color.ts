@@ -2,6 +2,7 @@ import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Inter
 import { Cloneable } from "../utils/Cloneable";
 
 export class Color implements Interpolatable, Cloneable {
+    // Constructors
     public constructor(public red: number, public green: number, public blue: number, public alpha: number) {
 
     }
@@ -37,13 +38,23 @@ export class Color implements Interpolatable, Cloneable {
         return new Color(r / 255, g / 255, b / 255, a / 255);
     }
 
+    // Presets
+    public static get white(): Color { return new Color(1, 1, 1, 1); }
+    public static get black(): Color { return new Color(0, 0, 0, 1); }
+    public static get clear(): Color { return new Color(0, 0, 0, 1); }
+
+    public static get red(): Color { return new Color(1, 0, 0, 1); }
+    public static get green(): Color { return new Color(0, 1, 0, 1); }
+    public static get blue(): Color { return new Color(0, 0, 1, 1); }
+
+    public static get yellow(): Color { return new Color(1, 1, 0, 1); }
+    public static get cyan(): Color { return new Color(0, 1, 1, 1); }
+    public static get purple(): Color { return new Color(1, 0, 1, 1); }
+
+    // Color info
     public get isDark(): boolean {
         let darknessScore = this.red * 0.299 + this.green * 0.587 + this.blue * 0.114;
-        if (darknessScore > 0.5) {
-            return false;
-        } else {
-            return true;
-        }
+        return darknessScore < 0.5;
     }
 
     public toHex(): number {
@@ -55,6 +66,11 @@ export class Color implements Interpolatable, Cloneable {
         return (r << 24) | (g << 16) | (b << 8) | (a);
     }
 
+    public withAlpha(alpha: number): Color {
+        return new Color(this.red, this.green, this.blue, alpha);
+    }
+
+    // Interfaces
     public interpolate(to: Interpolatable, time: number): Color {
         if (to instanceof Color) {
             return new Color(

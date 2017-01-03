@@ -37,6 +37,11 @@ export class Rect implements Interpolatable, Cloneable {
     public get width(): number { return this.size.width; }
     public get height(): number { return this.size.height; }
 
+    public get maxX(): number { return this.x + this.width; }
+    public get minX(): number { return this.x; }
+    public get maxY(): number { return this.y + this.height; }
+    public get minY(): number { return this.y; }
+
     public get center(): Point {
         return new Point(
             this.x + this.width / 2,
