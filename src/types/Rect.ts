@@ -2,8 +2,9 @@ import { Point } from "./Point";
 import { Size } from "./Size";
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
 import { Cloneable } from "../utils/Cloneable";
+import { Equatable } from "../utils/Equatable";
 
-export class Rect implements Interpolatable, Cloneable {
+export class Rect implements Interpolatable, Cloneable, Equatable {
     public point: Point;
     public size: Size;
 
@@ -67,5 +68,11 @@ export class Rect implements Interpolatable, Cloneable {
 
     public clone(): Rect {
         return new Rect(this.point.clone(), this.size.clone());
+    }
+
+    public equals(other: Equatable): boolean {
+        return other instanceof Rect &&
+            other.point.equals(this.point) &&
+            other.size.equals(this.size);
     }
 }

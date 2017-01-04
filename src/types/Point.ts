@@ -1,17 +1,14 @@
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
 import { Cloneable } from "../utils/Cloneable";
+import { Equatable } from "../utils/Equatable";
 
-export class Point implements Interpolatable, Cloneable {
+export class Point implements Interpolatable, Cloneable, Equatable {
     constructor(public x: number, public y: number) {
 
     }
 
     public static get zero(): Point {
         return new Point(0, 0);
-    }
-
-    public equals(point: Point): boolean {
-        return this.x === point.x && this.y === point.y;
     }
 
     public inverse(): Point {
@@ -46,5 +43,11 @@ export class Point implements Interpolatable, Cloneable {
 
     public clone(): Point {
         return new Point(this.x, this.y);
+    }
+
+    public equals(other: Equatable): boolean {
+        return other instanceof Point &&
+            other.x === this.x &&
+            other.y === this.y;
     }
 }

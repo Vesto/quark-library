@@ -15,9 +15,10 @@ export interface ViewBacking {
     qk_view?: View;
 
     qk_init(): void;
-    qk_appearanceChanged(appearance: Appearance): void;
+    qk_appearanceChanged(appearance: Appearance): void; // Appearance callback from view
 
     qk_setRect(rect: Rect): void;
+    qk_layout(): void; // Layout callback from view
 
     readonly qk_subviews: View[];
     readonly qk_superview: View | undefined;
@@ -94,10 +95,20 @@ export class View implements EventResponder {
     }
 
     /* Positioning */
+    protected _previousRect: Rect = Rect.zero; // The previous rect that was set
     protected _rect: Rect = Rect.zero;
     public get rect(): Rect { return this._rect; }
     public set rect(rect: Rect) { this.proxyProperty("_rect", rect); }
-    private _rectUpdate() { this.backing.qk_setRect(this._rect); }
+    private _rectUpdate() {
+        // Tell QKView
+        this.backing.qk_setRect(this._rect);
+
+        // Trigger layout if different view
+        if (!this._rect.equals(this._previousRect)) {
+            this._previousRect = this._rect.clone();
+            this.layout();
+        }
+    }
 
     public get center(): Point { return this.rect.center; }
     public set center(value: Point) {
@@ -202,6 +213,9 @@ export class View implements EventResponder {
     /* Layout */
     /// Override point for subviews of a View.
     public layout() {
+        // Call backing's layout
+        this.backing.qk_layout();
+
         // Override point
     }
 

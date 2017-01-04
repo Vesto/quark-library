@@ -1,6 +1,8 @@
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
+import { Cloneable } from "../utils/Cloneable";
+import { Equatable } from "../utils/Equatable";
 
-export class Size implements Interpolatable {
+export class Size implements Interpolatable, Cloneable, Equatable {
     constructor(public width: number, public height: number) {
 
     }
@@ -19,5 +21,11 @@ export class Size implements Interpolatable {
 
     public clone(): Size {
         return new Size(this.width, this.height);
+    }
+
+    public equals(other: Equatable): boolean {
+        return other instanceof Size &&
+            other.width === this.width &&
+            other.height === this.height;
     }
 }

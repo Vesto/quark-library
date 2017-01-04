@@ -1,7 +1,8 @@
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
 import { Cloneable } from "../utils/Cloneable";
+import { Equatable } from "../utils/Equatable";
 
-export class Color implements Interpolatable, Cloneable {
+export class Color implements Interpolatable, Cloneable, Equatable {
     // Constructors
     public constructor(public red: number, public green: number, public blue: number, public alpha: number) {
 
@@ -41,7 +42,7 @@ export class Color implements Interpolatable, Cloneable {
     // Presets
     public static get white(): Color { return new Color(1, 1, 1, 1); }
     public static get black(): Color { return new Color(0, 0, 0, 1); }
-    public static get clear(): Color { return new Color(0, 0, 0, 1); }
+    public static get clear(): Color { return new Color(0, 0, 0, 0); }
 
     public static get red(): Color { return new Color(1, 0, 0, 1); }
     public static get green(): Color { return new Color(0, 1, 0, 1); }
@@ -86,5 +87,13 @@ export class Color implements Interpolatable, Cloneable {
 
     public clone(): Color {
         return new Color(this.red, this.green, this.blue, this.alpha);
+    }
+
+    public equals(other: Equatable): boolean {
+        return other instanceof Color &&
+            other.red === this.red &&
+            other.green === this.green &&
+            other.blue === this.blue &&
+            other.alpha === this.alpha;
     }
 }

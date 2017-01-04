@@ -2,8 +2,9 @@ import { Color } from "./Color";
 import { Point } from "./Point";
 import { Interpolatable, InvalidInterpolatableDestination } from "../utils/Interpolatable";
 import { Cloneable } from "../utils/Cloneable";
+import { Equatable } from "../utils/Equatable";
 
-export class Shadow implements Interpolatable, Cloneable {
+export class Shadow implements Interpolatable, Cloneable, Equatable {
     constructor(public offset: Point, public blurRadius: number, public color: Color) {
 
     }
@@ -22,5 +23,12 @@ export class Shadow implements Interpolatable, Cloneable {
 
     public clone(): Shadow {
         return new Shadow(this.offset.clone(), this.blurRadius, this.color.clone());
+    }
+
+    public equals(other: Equatable): boolean {
+        return other instanceof Shadow &&
+            other.offset.equals(this.offset) &&
+            other.blurRadius === this.blurRadius &&
+            other.color.equals(this.color);
     }
 }

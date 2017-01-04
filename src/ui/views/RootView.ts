@@ -17,5 +17,11 @@ export class RootView extends View {
 
     // When `rect` set, only set the local `rect` since it should only be called from `QKRootView`
     public get rect(): Rect { return this._rect; }
-    public set rect(rect: Rect) { this._rect = rect.bounds; }
+    public set rect(rect: Rect) {
+        // Update the local rect
+        this._rect = rect.bounds;
+
+        // Trigger a layout
+        this.layout();
+    }
 }
