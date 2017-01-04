@@ -15,7 +15,7 @@ export interface LabelBacking extends ViewBacking {
     qk_setAlignmentMode(mode: TextAlignmentMode): void;
     qk_setVerticalAlignmentMode(mode: TextVerticalAlignmentMode): void;
 
-    qk_textSize(): Size;
+    readonly qk_textSize: Size;
 }
 
 export enum LabelStyle {
@@ -61,7 +61,7 @@ export class Label extends View {
     public set style(style: LabelStyle) { this._style = style; this.updateAppearance(); }
 
     // Returns the size of the text itself
-    public get textSize(): Size { return this.labelBacking.qk_textSize(); }
+    public get textSize(): Size { return this.labelBacking.qk_textSize; }
 
     public constructor(backing?: LabelBacking) {
         super(backing ? backing : Label.createBacking());
