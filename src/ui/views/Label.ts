@@ -4,6 +4,7 @@ import { Font } from "../../types/Font";
 import { Color } from "../../types/Color";
 import { LineBreakMode, TextAlignmentMode, TextVerticalAlignmentMode } from "../properties/Text";
 import { Appearance } from "../Appearance";
+import { Size } from "../../types/Size";
 
 export interface LabelBacking extends ViewBacking {
     qk_setText(text: string): void;
@@ -13,6 +14,8 @@ export interface LabelBacking extends ViewBacking {
     qk_setLineBreakMode(mode: LineBreakMode): void;
     qk_setAlignmentMode(mode: TextAlignmentMode): void;
     qk_setVerticalAlignmentMode(mode: TextVerticalAlignmentMode): void;
+
+    qk_textSize(): Size;
 }
 
 export enum LabelStyle {
@@ -57,6 +60,9 @@ export class Label extends View {
     public get style(): LabelStyle { return this._style; }
     public set style(style: LabelStyle) { this._style = style; this.updateAppearance(); }
 
+    // Returns the size of the text itself
+    public get textSize(): Size { return this.labelBacking.qk_textSize(); }
+
     public constructor(backing?: LabelBacking) {
         super(backing ? backing : Label.createBacking());
 
@@ -100,5 +106,11 @@ export class Label extends View {
                 // Don't style .None
                 return;
         }
+    }
+
+    // Resize the view to fit the contents
+    public sizeToFit() {
+        // Set the size to the text size
+        this.rect.size = this.textSize;
     }
 }
