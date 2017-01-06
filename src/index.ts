@@ -15,6 +15,7 @@ export * from "./core/Logger";
 export * from "./core/Module";
 export * from "./core/ModuleDelegate";
 export * from "./core/User";
+export * from "./core/WebSocket";
 
 // types
 export * from "./types/Color";

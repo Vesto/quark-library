@@ -1,4 +1,3 @@
-import { Logger } from "../core/Logger";
 export interface TimerBacking {
     qk_executeAfter(milliseconds: number, callback: () => void): () => void; // Returns cancel function
 }
