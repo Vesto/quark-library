@@ -1,5 +1,5 @@
 import { View, ViewBacking } from "./View";
-import { Rect } from "../../types/Rect";
+import { Rect } from "quark-core";
 import { Appearance } from "../Appearance";
 
 export interface RootViewBacking extends ViewBacking {

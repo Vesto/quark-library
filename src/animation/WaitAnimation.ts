@@ -1,6 +1,6 @@
+import { Timer } from "quark-core";
 import { Animation } from "./Animation";
 import { AnimationGrouping } from "./AnimationGrouping";
-import { Timer } from "../utils/Timer";
 
 export class DelayAnimation implements Animation {
     public group?: AnimationGrouping;

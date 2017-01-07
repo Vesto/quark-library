@@ -1,7 +1,6 @@
+import { Cloneable } from "quark-core";
 import AutoLayout = require("autolayout");
 import {View} from "./views/View";
-import {Logger} from "../core/Logger";
-import { Cloneable } from "../utils/Cloneable";
 
 function autoLayoutToQuarkAttribute(attribute: AutoLayout.AttributeValue): Constraint.Attribute {
     switch (attribute) {

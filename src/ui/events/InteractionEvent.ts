@@ -1,5 +1,5 @@
 import { Event, EventPhase } from "./Event";
-import { Point } from "../../types/Point";
+import { Point } from "quark-core";
 
 /*
 Touch is for touchscreen, stylus is for touchscreen and eventually real styluses

@@ -1,6 +1,5 @@
 import { AnimationGrouping } from "./AnimationGrouping";
 import { Animation } from "./Animation";
-import { Logger } from "../core/Logger";
 
 export class SequenceAnimation implements AnimationGrouping {
     public group?: AnimationGrouping;

@@ -1,8 +1,5 @@
 import { View, ViewBacking } from "./View";
-import { Image } from "../../types/Image";
-import { Point } from "../../types/Point";
-import { Size } from "../../types/Size";
-import { Color } from "../../types/Color";
+import { Image, Point, Size, Color } from "quark-core";
 
 export type ImageScalingMode = "none" | "fill" | "aspect-fit" | "aspect-fill" | Size; // Size is percentage of parent in x and y
 export interface ImageViewBacking extends ViewBacking {

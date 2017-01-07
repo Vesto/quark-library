@@ -1,10 +1,5 @@
-import { Color } from "../types/Color";
-import { Font } from "../types/Font";
-import { TextAlignmentMode } from "./properties/Text";
-import { Shadow } from "../types/Shadow";
-import { View } from "./views/View";
-import { Label } from "./views/Label";
-import { Cloneable } from "../utils/Cloneable";
+import { Cloneable } from "quark-core";
+import { Color, Font, TextAlignmentMode, Shadow } from "quark-core";
 
 export class Appearance implements Cloneable {
     public static get defaultAppearance(): Appearance {

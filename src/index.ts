@@ -11,22 +11,9 @@ export * from "./animation/WaitAnimation";
 
 // core
 export * from "./core/Device";
-export * from "./core/Logger";
 export * from "./core/Module";
 export * from "./core/ModuleDelegate";
 export * from "./core/User";
-export * from "./core/WebSocket";
-
-// types
-export * from "./types/Color";
-export * from "./types/Edges";
-export * from "./types/Font";
-export * from "./types/Image";
-export * from "./types/Point";
-export * from "./types/Rect";
-export * from "./types/Shadow";
-export * from "./types/Size";
-export * from "./types/Vector";
 
 // ui
 export * from "./ui/Appearance";
@@ -41,9 +28,6 @@ export * from "./ui/events/FocusEvent";
 export * from "./ui/events/InteractionEvent";
 export * from "./ui/events/KeyEvent";
 export * from "./ui/events/ScrollEvent";
-
-// ui/properties
-export * from "./ui/properties/Text";
 
 // ui/views
 export * from "./ui/views/ActivityIndicator";
@@ -67,8 +51,5 @@ export * from "./ui/views/WebView";
 export * from "./ui/views/containers/SplitContainer";
 export * from "./ui/views/containers/TabContainer";
 
-// utils
-export * from "./utils/AnimationLoop";
-export * from "./utils/Cloneable";
-export * from "./utils/Interpolatable";
-export * from "./utils/Timer";
+// quark-core
+export * from "quark-core";

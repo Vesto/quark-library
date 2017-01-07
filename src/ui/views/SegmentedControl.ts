@@ -1,5 +1,5 @@
 import { View, ViewBacking } from "./View";
-import { Image } from "../../types/Image";
+import { Image } from "quark-core";
 import { Control, ControlBacking } from "./Control";
 
 export class SegmentItem {

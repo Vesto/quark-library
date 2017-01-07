@@ -1,8 +1,6 @@
+import { Interpolatable, AnimationLoop, Cloneable } from "quark-core";
 import { AnimationGrouping } from "./AnimationGrouping";
 import { Animation } from "./Animation";
-import { Interpolatable } from "../utils/Interpolatable";
-import { AnimationLoop } from "../utils/AnimationLoop";
-import { Cloneable } from "../utils/Cloneable";
 
 export class PropertyAnimation<T extends Interpolatable & Cloneable> implements Animation {
     public target: any;

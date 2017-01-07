@@ -1,4 +1,4 @@
-import { Image } from "../types/Image";
+import { Image } from "quark-core";
 
 export class User {
     public readonly profileImage: Image;

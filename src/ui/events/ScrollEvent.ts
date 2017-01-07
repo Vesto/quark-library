@@ -1,6 +1,5 @@
 import { Event, EventPhase } from "./Event";
-import { Point } from "../../types/Point";
-import { Vector } from "../../types/Vector";
+import { Point, Vector } from "quark-core";
 
 export class ScrollEvent extends Event {
     public constructor(

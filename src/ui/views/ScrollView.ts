@@ -1,6 +1,5 @@
 import { View, ViewBacking } from "./View";
-import { Point } from "../../types/Point";
-import { Size } from "../../types/Size";
+import { Point, Size } from "quark-core";
 
 export interface ScrollViewBacking extends ViewBacking {
     qk_onScrollCallback: (offset: Point) => void;

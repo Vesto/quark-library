@@ -17,7 +17,8 @@ var compiler = webpack(
         ],
         module: { // Use a module to load TypeScript
             loaders: [
-                { test: /\.ts$/, loader: "ts-loader" } // Load TS files with ts-loader
+                { test: /\.ts$/, loader: "ts-loader" }, // Load TS files with ts-loader
+                // { test: require.resolve("quark-core"), loader: "expose-loader?quarkCore" } // Expose quarkCore in the global scope // Don't need this since export all of quark-core from quark-library
             ]
         },
         // Suppress warning about large bundle sizes

@@ -1,5 +1,5 @@
 import { View } from "./views/View";
-import { Image } from "../types/Image";
+import { Image } from "quark-core";
 
 export abstract class Sidebar {
     public readonly image: Image;

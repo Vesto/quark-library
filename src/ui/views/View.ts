@@ -1,14 +1,11 @@
-/// <reference path="../../utils/typings/autolayout.d.ts" />
+/// <reference path="../../typings/autolayout.d.ts" />
 
 import { FocusEvent } from "../events/FocusEvent";
 import { InteractionEvent } from "../events/InteractionEvent";
 import { KeyEvent } from "../events/KeyEvent";
 import { ScrollEvent } from "../events/ScrollEvent";
 import { EventResponder } from "../events/EventResponder";
-import { Rect } from "../../types/Rect";
-import { Point } from "../../types/Point";
-import { Color } from "../../types/Color";
-import { Shadow } from "../../types/Shadow";
+import { Rect, Point, Color, Shadow } from "quark-core";
 import { Module } from "../../core/Module";
 import { Appearance } from "../Appearance";
 import {Constraint} from "../Constraint";

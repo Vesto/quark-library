@@ -2,7 +2,6 @@ import { View, ViewBacking } from "./View";
 import { Control, ControlBacking } from "./Control";
 import { InteractionEvent, InteractionType } from "../events/InteractionEvent";
 import { EventPhase } from "../events/Event";
-import { Image } from "../../types/Image";
 
 export interface ButtonHandler { (button: Button): void; }
 

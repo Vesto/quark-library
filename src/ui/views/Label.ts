@@ -1,10 +1,7 @@
-///<reference path="../../types/Font.ts"/>
 import { View, ViewBacking } from "./View";
-import { Font } from "../../types/Font";
-import { Color } from "../../types/Color";
-import { LineBreakMode, TextAlignmentMode, TextVerticalAlignmentMode } from "../properties/Text";
+import { Font, Color, Size } from "quark-core";
+import { LineBreakMode, TextAlignmentMode, TextVerticalAlignmentMode } from "quark-core";
 import { Appearance } from "../Appearance";
-import { Size } from "../../types/Size";
 
 export interface LabelBacking extends ViewBacking {
     qk_setText(text: string): void;

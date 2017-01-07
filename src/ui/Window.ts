@@ -1,7 +1,7 @@
 import { View } from "./views/View";
 import { Sidebar } from "./Sidebar";
 import { ToolbarItem } from "./ToolbarItem";
-import { Point } from "../types/Point";
+import { Point } from "quark-core";
 
 export interface WindowBacking {
      readonly qk_rootView: View;
