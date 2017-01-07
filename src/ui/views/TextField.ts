@@ -26,8 +26,11 @@ export class TextField extends Label implements Control {
 
         // Set the callback
         this.textFieldBacking.qk_contentChangeCallback = (text) => {
+            // Save the text
+            this._text = text;
+
+            // Call the callback
             if (this.onChange) {
-                this._text = text;
                 this.onChange(this, text);
             }
         };
