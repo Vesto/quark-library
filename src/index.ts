@@ -29,8 +29,9 @@ export * from "./types/Size";
 export * from "./types/Vector";
 
 // ui
-export * from "./ui/Sidebar";
 export * from "./ui/Appearance";
+export * from "./ui/Constraint";
+export * from "./ui/Sidebar";
 export * from "./ui/ToolbarItem";
 export * from "./ui/Window";
 

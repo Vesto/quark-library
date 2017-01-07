@@ -1,3 +1,5 @@
+/// <reference path="../../utils/typings/autolayout.d.ts" />
+
 import { FocusEvent } from "../events/FocusEvent";
 import { InteractionEvent } from "../events/InteractionEvent";
 import { KeyEvent } from "../events/KeyEvent";
@@ -9,6 +11,13 @@ import { Color } from "../../types/Color";
 import { Shadow } from "../../types/Shadow";
 import { Module } from "../../core/Module";
 import { Appearance } from "../Appearance";
+import {Constraint} from "../Constraint";
+import { PropertyAnimation } from "../../animation/PropertyAnimation";
+
+import AutoLayout = require("autolayout");
+
+import { v4 as UUID } from "uuid";
+
 
 // Interface for what `quark-native` needs to implement with prototypes
 export interface ViewBacking {
@@ -47,7 +56,12 @@ export class View implements EventResponder {
 
     public name: string = "";
 
+    public readonly uuid: string;
+
     public constructor(backing?: ViewBacking) {
+        // Set the uuid
+        this.uuid = UUID();
+
         // Check inside VM, save instance of module backing
         this.module = Module.shared;
 
@@ -105,8 +119,12 @@ export class View implements EventResponder {
 
         // Trigger layout if different view
         if (!this._rect.equals(this._previousRect)) {
+            // Save the rect
             this._previousRect = this._rect.clone();
+
+            // Layout this view and the superview
             this.layout();
+            // if (this.superview) { this.superview.layout() }
         }
     }
 
@@ -149,8 +167,16 @@ export class View implements EventResponder {
     }
 
     public addSubviewAt(view: View, index: number) {
+        // Add the subivew
         let newIndex = Math.min(Math.max(Math.floor(index), 0), this.subviews.length);
         this.backing.qk_addSubview(view, newIndex);
+
+        // Layout the target and subviews
+        // for (let subview of this.subviews) {
+        //     subview.layout();
+        // }
+        // this.layout();
+
     }
 
     public addSubview(view: View) { this.addSubviewAt(view, this.subviews.length); }
@@ -211,13 +237,90 @@ export class View implements EventResponder {
     }
 
     /* Layout */
-    /// Override point for subviews of a View.
+    /// Override point for subviews of a View. See http://stackoverflow.com/questions/728372/when-is-layoutsubviews-called
+    // for when to call `layout`
     public layout() {
         // Call backing's layout
         this.backing.qk_layout();
 
+        // Apply the constraints
+        if (this.useAutoLayout)
+            this.applyConstraints();
+
         // Override point
     }
+
+    /* AutoLayout */
+    public useAutoLayout: boolean = false;
+
+    private _constraints: Constraint[] = [];
+    public get constraints(): Constraint[] { return this._constraints; }
+
+    public addConstraint(constraint: Constraint) {
+        // Add the constraint
+        this._constraints.push(constraint);
+    }
+
+    public addConstraints(constraints: Constraint[]): void {
+        for (let constraint of constraints) {
+            this.addConstraint(constraint);
+        }
+    }
+
+    public removeConstraint(constraint: Constraint): void {
+        // Remove the constraint if it exists
+        let index = this._constraints.indexOf(constraint);
+        if (index !== -1) {
+            this.constraints.splice(index, 1);
+        }
+    }
+
+    public removeConstraints(constraints: Constraint[]): void {
+        for (let constraint of constraints) {
+            this.removeConstraint(constraint);
+        }
+    }
+
+    // Resizes the views based on the constraints
+    public applyConstraints(animates: boolean = false) {
+        // Create an auto layout view with all the constraints
+        let view = new AutoLayout.View({
+            width: this.rect.width,
+            height: this.rect.height,
+            constraints: this._constraints.map(constraint => constraint.toAutoLayoutConstraint()),
+            spacing: this.appearance.spacing
+        });
+
+        // Set the frame for every subview if there are constraints for it
+        for (let subview of this.subviews) {
+            let subviewInfo = view.subViews[subview.uuid];
+            if (subviewInfo) { // If the subview has constraints relating to it
+                // Create the view's properties
+                let newRect = new Rect(
+                    subviewInfo.left, subviewInfo.top,
+                    subviewInfo.width, subviewInfo.height
+                );
+
+                // Make sure there's a change
+                if (newRect.equals(subview.rect)) { continue; }
+
+                // Update the properties
+                if (animates) {
+                    let animation = new PropertyAnimation<Rect>();
+                    animation.target = subview;
+                    animation.property = "rect";
+                    animation.duration = 0.2;
+                    animation.to = newRect;
+                    animation.start();
+                } else { // Instant transition
+                    subview.rect = newRect
+                }
+                // TODO: zIndex
+            }
+        }
+    }
+
+
 
     /* Visibility */
     protected _isHidden: boolean;

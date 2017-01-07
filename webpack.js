@@ -19,6 +19,10 @@ var compiler = webpack(
             loaders: [
                 { test: /\.ts$/, loader: "ts-loader" } // Load TS files with ts-loader
             ]
+        },
+        // Suppress warning about large bundle sizes
+        performance: {
+            hints: false
         }
     }
 );
@@ -31,7 +35,7 @@ new webpack.Compiler.Watching(compiler, undefined, function(err, stats) {
     } else if (stats.hasErrors()) {
         console.log(prefix + "Stats errors:", stats.compilation.errors);
     } else if (stats.hasWarnings()) {
-        console.log(prefix + "Stats warnings:", stats.compilation.errors);
+        console.log(prefix + "Stats warnings:", stats.compilation.warnings);
     } else {
         console.log(prefix + "Compile complete.")
     }
